@@ -1,0 +1,34 @@
+name: Build + CLI Deploy to EdgeOne Pages
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 拉代码
+      - uses: actions/checkout@v4
+
+      # 2. 安装 pnpm
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9   # 或你锁定的版本
+
+      # 3. 安装 Node
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      # 4. 安装依赖并构建
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+
+      # 5. 上传产物
+      - run: |
+          npx @tencent/edgeone-cli pages deploy ./dist \
+            -n ${{ github.event.repository.name }} \
+            -t ${{ secrets.EDGEONE_API_TOKEN }} \
+            -e prod
