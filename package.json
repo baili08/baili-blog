@@ -74,3 +74,10 @@
   },
   "packageManager": "pnpm@9.14.4"
 }
+{
+  "pnpm": {
+    "overrides": {
+      "stylus": "https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz"
+    }
+  }
+}
