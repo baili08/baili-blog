@@ -4,42 +4,45 @@ name: Build + CLI Deploy to EdgeOne Pages
 on:
   push:
     branches: [main]
-  workflow_dispatch:   # 允许手动触发
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      # 1. 检出源码 + 子模块
-      - name: Checkout repository
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Checkout repository & submodules
         uses: actions/checkout@v4
         with:
-          submodules: true          # 拉取子模块
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}  # 使用你设置的私钥
+          submodules: recursive
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # 2. 安装 pnpm
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
-      # 3. 安装 Node.js 并缓存 pnpm 依赖
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'pnpm'
 
-      # 4. 安装依赖并构建
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Install & Build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
 
-      - name: Build project
-        run: pnpm build
+      # ✅ 安装 Edgeone CLI（全局）
+      - name: Install Edgeone CLI
+        run: npm install -g edgeone
 
-      # 5. 部署到 EdgeOne Pages
+      # ✅ 使用 CLI 部署
       - name: Deploy to EdgeOne Pages
         run: |
-          npx @tencent/edgeone-cli pages deploy ./dist \
+          edgeone pages deploy ./dist \
             -n baili-blog \
             -t ${{ secrets.EDGEONE_API_TOKEN }} \
-            -e prod
+            -e production
