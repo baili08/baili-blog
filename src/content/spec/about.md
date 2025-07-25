@@ -1,9 +1,21 @@
-# About
-This is the demo site for [Fuwari](https://github.com/saicaca/fuwari).
+#About
+
+**关于本站**
+
+本站名为百里博客，博主为百里修行，山西某不知名小县城普高的一名高二生，自幼热爱信息技术，小学时就接触到了静态网页搭建，有一些搭建作品，可惜由于用的是公益虚拟主机，没几个月就跑路了，初中有了自己的第一个服务器和博客(基于Typecho+joe)，曾被百度收录，后由于用的别人的域名，域名被收回，现在的百里博客使用了 [Fuwari](https://github.com/saicaca/fuwari).，一个基于 [Astro](https://astro.build/) 开发的静态博客模板。
 
 ::github{repo="saicaca/fuwari"}
 
-> ### Sources of images used in this site
-> - [Unsplash](https://unsplash.com/)
-> - [星と少女](https://www.pixiv.net/artworks/108916539) by [Stella](https://www.pixiv.net/users/93273965)
-> - [Rabbit - v1.4 Showcase](https://civitai.com/posts/586908) by [Rabbit_YourMajesty](https://civitai.com/user/Rabbit_YourMajesty)
+::github{repo="withastro/astro"}
+
+**博主头像**
+
+来自《中二病也要谈恋爱！》中的[小鳥遊（たかなし）六花（りっか）](https://zh.moegirl.org.cn/小鸟游六花)
+
+**博主个性签名**
+
+来自米哈游英文站官网，译为*科技宅改变世界*
+
+**技能**
+
+了解前端三件套(HTML CSS JAVASCRIPT)，熟悉Linux基本操作命令，会对一些未加固的原生开发的apk软件进行简单的逆向分析，了解互联网的基本原理，精通PHP网站搭建，了解域名解析系统基本原理，会对简单的网页进行开发调试，熟悉Python语言，常年混迹于MT论坛，葫芦侠三楼，吾爱破解论坛等
