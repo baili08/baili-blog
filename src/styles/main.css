@@ -1,3 +1,36 @@
+/* 引入自定义字体 */
+@font-face {
+  font-family: 'MyCustomFont'; /* 为字体指定一个名称 */
+  src: url('/ziti.woff2') format('woff2'); /* 路径相对于 public 目录 */
+  font-weight: 600; /* 设置字体的字重为 600 (Medium) [[6]] */
+  font-style: normal; /* 如果是常规样式 */
+  font-display: swap; /* 优化字体加载性能 */
+}
+
+/* 将自定义字体应用于全局 */
+:root {
+  /* 假设原来有一个字体变量，如果没有则添加 */
+  /* --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; */
+  /* 将其修改或新增为使用你的自定义字体 */
+  --font-family: 'MyCustomFont', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; /* 使用自定义字体作为首选 */
+}
+
+/* 应用字体到需要继承字体的元素 */
+/* 你原有的代码已经包含了大部分元素，我们只需确保 body 使用了字体变量 */
+body {
+  font-family: var(--font-family); /* 应用字体变量 */
+}
+/* 引入自定义字体 */
+@font-face {
+  font-family: 'MyCustomFont'; /* 为字体指定一个名称 */
+  src: url('/ziti.woff2') format('woff2'); /* 路径相对于 public 目录 */
+  font-weight: 600; /* 设置字体的字重为 600 */
+  font-style: normal; /* 如果是常规样式 */
+  font-display: swap; /* 优化字体加载性能 */
+}
+
+/* === 以下是你原有的所有 CSS 代码保持不变 === */
+/* ... (此处粘贴你原来的全部 CSS 代码) ... */
 @tailwind components;
 
 @layer components {
