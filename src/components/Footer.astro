@@ -1,16 +1,58 @@
 ---
-
 import { profileConfig } from "../config";
 import { url } from "../utils/url-utils";
 
 const currentYear = new Date().getFullYear();
 ---
 
-<!--<div class="border-t border-[var(&#45;&#45;primary)] mx-16 border-dashed py-8 max-w-[var(&#45;&#45;page-width)] flex flex-col items-center justify-center px-6">-->
+<!-- 分隔线 -->
 <div class="transition border-t border-black/10 dark:border-white/15 my-10 border-dashed mx-32"></div>
-<!--<div class="transition bg-[oklch(92%_0.01_var(&#45;&#45;hue))] dark:bg-black rounded-2xl py-8 mt-4 mb-8 flex flex-col items-center justify-center px-6">-->
+
+<!-- footer 内容 -->
 <div class="transition border-dashed border-[oklch(85%_0.01_var(--hue))] dark:border-white/15 rounded-2xl mb-12 flex flex-col items-center justify-center px-6">
-    <div class="transition text-50 text-sm text-center">
+    <!-- 站点统计 -->
+    <div class="framework-info text-sm text-center">
+        <!-- 新版不蒜子 -->
+        <script src="//www.busuanzi.cc/static/3.6.9/busuanzi.min.js" defer></script>
+
+        <span>
+            本"<span style="color:hsl(192 98% 55%);font-weight:bold;">页面</span>"阅读
+            <span id="busuanzi_page_pv" style="color:hsl(192 98% 55%);font-weight:bold;">加载中...</span> 次 |
+            👀总访问
+            <span id="busuanzi_site_pv" style="color:hsl(192 98% 55%);font-weight:bold;">加载中...</span> 次 |
+            总访客
+            <span id="busuanzi_site_uv" style="color:hsl(192 98% 55%);font-weight:bold;">加载中...</span> 人
+        </span>
+        <br>
+
+        <!-- ICP 备案号 -->
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"
+           style="color:hsl(192 98% 55%);font-weight:bold;">
+            晋ICP备2025063045号
+        </a>
+        <br>
+
+        <!-- 运行时间 -->
+        <script>
+            function runtime() {
+                const start = new Date("09/01/2024 08:00:00");
+                const now   = new Date;
+                const diff  = now - start;
+                const sec   = Math.floor(diff / 1e3);
+                const day   = Math.floor(sec / 86400);
+                const hour  = Math.floor(sec % 86400 / 3600);
+                const min   = Math.floor(sec % 3600 / 60);
+                const sec2  = sec % 60;
+                document.getElementById("runningtime").innerHTML =
+                    `⏱️本站已运行: ${day}天${hour}小时${min}分${sec2}秒 ☁️`;
+            }
+            setInterval(runtime, 1000);
+        </script>
+        <p id="runningtime"></p>
+    </div>
+
+    <!-- 版权 & 链接 -->
+    <div class="transition text-50 text-sm text-center mt-3">
         &copy; <span id="copyright-year">{currentYear}</span> {profileConfig.name}. All Rights Reserved. /
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href={url('rss.xml')}>RSS</a> /
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href={url('sitemap-index.xml')}>Sitemap</a><br>
