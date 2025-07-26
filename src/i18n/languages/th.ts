@@ -5,17 +5,18 @@ export const th: Translation = {
 	[Key.home]: "หน้าแรก",
 	[Key.about]: "เกี่ยวกับ",
 	[Key.archive]: "คลัง",
+	[Key.friends]: "เพื่อน",
 	[Key.search]: "ค้นหา",
 
-	[Key.tags]: "ป้ายกำกับ",
+	[Key.tags]: "แท็ก",
 	[Key.categories]: "หมวดหมู่",
 	[Key.recentPosts]: "โพสต์ล่าสุด",
 
 	[Key.comments]: "ความคิดเห็น",
 
-	[Key.untitled]: "ไม่ได้ตั้งชื่อ",
-	[Key.uncategorized]: "ไม่ได้จัดหมวดหมู่",
-	[Key.noTags]: "ไม่มีป้ายกำกับ",
+	[Key.untitled]: "ไม่มีชื่อเรื่อง",
+	[Key.uncategorized]: "ไม่มีหมวดหมู่",
+	[Key.noTags]: "ไม่มีแท็ก",
 
 	[Key.wordCount]: "คำ",
 	[Key.wordsCount]: "คำ",
@@ -28,11 +29,11 @@ export const th: Translation = {
 
 	[Key.lightMode]: "สว่าง",
 	[Key.darkMode]: "มืด",
-	[Key.systemMode]: "ตามระบบ",
+	[Key.systemMode]: "ระบบ",
 
-	[Key.more]: "ดูเพิ่ม",
+	[Key.more]: "เพิ่มเติม",
 
 	[Key.author]: "ผู้เขียน",
 	[Key.publishedAt]: "เผยแพร่เมื่อ",
-	[Key.license]: "สัญญาอนุญาต",
+	[Key.license]: "ใบอนุญาต",
 };

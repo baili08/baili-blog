@@ -39,7 +39,7 @@ const currentYear = new Date().getFullYear();
             function runtime() {
                 // Fix 1: Use a valid past date. Example: July 22, 2023
                 // Note: Month is 0-indexed in JS Date constructor (6 = July)
-                const start = new Date(2023, 6, 22, 8, 0, 0);
+                const start = new Date(2025, 7, 22, 8, 0, 0);
                 const now   = new Date();
                 const diff  = now - start;
                 const sec   = Math.floor(diff / 1e3);

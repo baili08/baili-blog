@@ -1,1 +1,27 @@
-{}
+{
+  "rewrites": [
+    {
+      "source": "/友链后端/api/:path*",
+      "destination": "/友链后端/api/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/友链后端/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://blog.my0811.cn"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type"
+        }
+      ]
+    }
+  ]
+}

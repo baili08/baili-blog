@@ -1,1 +1,10 @@
 # 请将伪静态规则或自定义Apache配置填写到此处
+
+# 启用PHP处理
+AddType application/x-httpd-php .php
+
+# 重写规则，将API请求指向PHP文件
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/(.*)$ api/$1 [QSA,L]
