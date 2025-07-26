@@ -5,7 +5,7 @@ published: 2025-07-25
 
 description: '分享一个调用三方接口进行步数作弊的python程序'
 
-image: https://r2.40118002.xyz/20250725.png
+image: https://r2.baili.cfd/20250725.png
 
 tags: ["Python", "自动化","Zeep Life","request"]
 

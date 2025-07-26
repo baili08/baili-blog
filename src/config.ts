@@ -32,7 +32,7 @@ export const siteConfig: SiteConfig = {
 	favicon: [
 		// Leave this array empty to use the default favicon
 		{
-			src: "https://r2.40118002.xyz/favicon.ico", // 修正：移除了末尾的空格
+			src: "https://r2.baili.cfd/favicon.ico", // 修正：移除了末尾的空格
 			//theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
 			sizes: "256x256", // (Optional) Size of the favicon, set only if you have favicons of different sizes
 		},
@@ -53,7 +53,7 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "https://r2.40118002.xyz/avatar.png", // 修正：移除了末尾的空格
+	avatar: "https://r2.baili.cfd/avatar.png", // 修正：移除了末尾的空格
 	name: "百里修行",
 	bio: "Tech otakus save the world.",
 	links: [

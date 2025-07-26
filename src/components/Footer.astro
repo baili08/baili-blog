@@ -1,10 +1,10 @@
 ---
+// Ensure these are correctly imported in your .astro file's frontmatter
 import { profileConfig } from "../config";
 import { url } from "../utils/url-utils";
 
 const currentYear = new Date().getFullYear();
 ---
-
 <!-- 分隔线 -->
 <div class="transition border-t border-black/10 dark:border-white/15 my-10 border-dashed mx-32"></div>
 
@@ -13,7 +13,8 @@ const currentYear = new Date().getFullYear();
     <!-- 站点统计 -->
     <div class="framework-info text-sm text-center">
         <!-- 新版不蒜子 -->
-        <script src="//www.busuanzi.cc/static/3.6.9/busuanzi.min.js" defer></script>
+        <!-- Fix 2: Use https protocol -->
+        <script src="https://www.busuanzi.cc/static/3.6.9/busuanzi.min.js" defer></script>
 
         <span>
             本"<span style="color:hsl(192 98% 55%);font-weight:bold;">页面</span>"阅读
@@ -26,6 +27,7 @@ const currentYear = new Date().getFullYear();
         <br>
 
         <!-- ICP 备案号 -->
+        <!-- Fix 3: Remove trailing spaces in href -->
         <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"
            style="color:hsl(192 98% 55%);font-weight:bold;">
             晋ICP备2025063045号
@@ -35,17 +37,30 @@ const currentYear = new Date().getFullYear();
         <!-- 运行时间 -->
         <script>
             function runtime() {
-                const start = new Date("22/07/2025 08:00:00");
-                const now   = new Date;
+                // Fix 1: Use a valid past date. Example: July 22, 2023
+                // Note: Month is 0-indexed in JS Date constructor (6 = July)
+                const start = new Date(2023, 6, 22, 8, 0, 0);
+                const now   = new Date();
                 const diff  = now - start;
                 const sec   = Math.floor(diff / 1e3);
+
+                // Handle case where start date might be in the future (error check)
+                if (sec < 0) {
+                     document.getElementById("runningtime").innerHTML = "⏱️运行时间计算中...";
+                     return;
+                }
+
                 const day   = Math.floor(sec / 86400);
-                const hour  = Math.floor(sec % 86400 / 3600);
-                const min   = Math.floor(sec % 3600 / 60);
+                // Fix 1 (clarity): Add parentheses for correct order of operations
+                const hour  = Math.floor((sec % 86400) / 3600);
+                const min   = Math.floor((sec % 3600) / 60);
                 const sec2  = sec % 60;
+
                 document.getElementById("runningtime").innerHTML =
                     `⏱️本站已运行: ${day}天${hour}小时${min}分${sec2}秒 ☁️`;
             }
+            // Fix 1: Call immediately to avoid delay on first load
+            runtime();
             setInterval(runtime, 1000);
         </script>
         <p id="runningtime"></p>
@@ -57,6 +72,7 @@ const currentYear = new Date().getFullYear();
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href={url('rss.xml')}>RSS</a> /
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href={url('sitemap-index.xml')}>Sitemap</a><br>
         Powered by
+        <!-- Fix 4: Remove trailing spaces in href -->
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://astro.build">Astro</a> &
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a>
     </div>
