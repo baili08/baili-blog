@@ -6,6 +6,7 @@ export const th: Translation = {
 	[Key.about]: "เกี่ยวกับ",
 	[Key.archive]: "คลัง",
 	[Key.friends]: "เพื่อน",
+	[Key.bangumi]: "Bangumi",
 	[Key.search]: "ค้นหา",
 
 	[Key.tags]: "แท็ก",

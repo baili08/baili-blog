@@ -45,6 +45,7 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Archive,
 		LinkPreset.About,
 		LinkPreset.Friends, // 添加友链页面链接
+		LinkPreset.Bangumi, // 添加Bangumi页面链接
 		{
 			name: "统计",
 			url: "https://cloud.umami.is/share/R6X4yAVAANX0pcH9/blog.my0811.cn", // 修正：移除了末尾的空格
