@@ -1,37 +1,15 @@
-/* 引入自定义字体 */
-@font-face {
-  font-family: 'MyCustomFont'; /* 为字体指定一个名称 */
-  src: url('/ziti.woff2') format('woff2'); /* 路径相对于 public 目录 */
-  font-weight: 600; /* 设置字体的字重为 600 (Medium) [[6]] */
-  font-style: normal; /* 如果是常规样式 */
-  font-display: swap; /* 优化字体加载性能 */
-}
+/* 引入外部字体 */
+@import url("https://fontsapi.zeoseven.com/292/main/result.css");
 
-/* 将自定义字体应用于全局 */
-:root {
-  /* 假设原来有一个字体变量，如果没有则添加 */
-  /* --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; */
-  /* 将其修改或新增为使用你的自定义字体 */
-  --font-family: 'MyCustomFont', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; /* 使用自定义字体作为首选 */
-}
-
-/* 应用字体到需要继承字体的元素 */
-/* 你原有的代码已经包含了大部分元素，我们只需确保 body 使用了字体变量 */
+/* 设置全局字体 */
 body {
-  font-family: var(--font-family); /* 应用字体变量 */
-}
-/* 引入自定义字体 */
-@font-face {
-  font-family: 'MyCustomFont'; /* 为字体指定一个名称 */
-  src: url('/ziti.woff2') format('woff2'); /* 路径相对于 public 目录 */
-  font-weight: 600; /* 设置字体的字重为 600 */
-  font-style: normal; /* 如果是常规样式 */
-  font-display: swap; /* 优化字体加载性能 */
+    font-family: "LXGW WenKai", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-weight: normal;
 }
 
-/* === 以下是你原有的所有 CSS 代码保持不变 === */
-/* ... (此处粘贴你原来的全部 CSS 代码) ... */
+/* === 原有 Tailwind 和组件样式保持不变 === */
 @tailwind components;
+@tailwind utilities;
 
 @layer components {
     .card-base {
@@ -142,6 +120,87 @@ body {
     }
     .btn-regular-dark.success {
         @apply bg-[oklch(0.75_0.14_var(--hue))] dark:bg-[oklch(0.75_0.14_var(--hue))]
+    }
+    
+    /* 友链页面暗色模式样式 */
+    .friends-page h1,
+    .friends-page h2,
+    .friends-page h3,
+    .friends-page p,
+    .friends-page label,
+    .friends-page li,
+    .friends-page ul,
+    .friends-page strong,
+    .friends-page .text-primary {
+        @apply dark:text-white transition-colors;
+    }
+    .friends-page .card-base {
+        @apply dark:bg-[var(--card-bg)] transition-colors;
+    }
+    /* 修复友链网站标题在暗色模式下的颜色问题 */
+    .friends-page .text-primary {
+        @apply text-[var(--primary)] dark:text-white transition-colors;
+    }
+    /* 修复"网站描述："、"网站链接："、"网站名称："文字颜色太浅的问题 */
+    .friends-page .prose strong {
+        @apply dark:text-white;
+    }
+    /* 确保页面加载文字在暗色模式下可见 */
+    .friends-page #friends-container p {
+        @apply dark:text-white;
+    }
+    /* 表单输入框暗色模式样式 */
+    .friends-page input {
+        @apply dark:bg-[var(--card-bg)] dark:border-gray-600 dark:text-white transition-colors;
+    }
+    /* 按钮暗色模式样式 */
+    .friends-page button {
+        @apply dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors;
+    }
+    
+    /* Bangumi页面暗色模式样式 */
+    .bangumi-page h1,
+    .bangumi-page h2,
+    .bangumi-page h3,
+    .bangumi-page p,
+    .bangumi-page button,
+    .bangumi-page span,
+    .bangumi-page strong {
+        @apply dark:text-white transition-colors;
+    }
+    .bangumi-page .card-base {
+        @apply dark:bg-[var(--card-bg)] transition-colors;
+    }
+    .bangumi-page .tab-button {
+        @apply dark:text-gray-300 dark:hover:text-gray-100 transition-colors;
+    }
+    .bangumi-page .tab-button[aria-selected="true"] {
+        @apply dark:text-[var(--primary)] transition-colors;
+    }
+    /* 修复标签按钮在暗色模式下的背景色问题 */
+    .bangumi-page .tab-button {
+        @apply dark:bg-transparent;
+    }
+    /* 修复标签按钮在暗色模式下被选中时文字变黑的问题 */
+    .bangumi-page .tab-button[aria-selected="true"]:focus,
+    .bangumi-page .tab-button[aria-selected="true"]:hover {
+        @apply dark:text-[var(--primary)] transition-colors;
+    }
+    /* 修复标签按钮在点击后文字变黑的问题 */
+    .bangumi-page .tab-button[aria-selected="false"] {
+        @apply dark:text-gray-300 transition-colors;
+    }
+    /* 确保页面标题在暗色模式下始终为白色 */
+    .bangumi-page h1 {
+        @apply dark:text-white;
+    }
+    /* 进度条容器暗色模式样式 */
+    .bangumi-page .bg-gray-200 {
+        @apply dark:bg-gray-700;
+    }
+    /* 番剧标题暗色模式样式 */
+    .bangumi-page .line-clamp-2 {
+        @apply dark:text-white;
     }
 }
 

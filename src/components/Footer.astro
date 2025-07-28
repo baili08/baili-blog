@@ -9,65 +9,108 @@ const currentYear = new Date().getFullYear();
 <div class="transition border-t border-black/10 dark:border-white/15 my-10 border-dashed mx-32"></div>
 
 <!-- footer 内容 -->
-<div class="transition border-dashed border-[oklch(85%_0.01_var(--hue))] dark:border-white/15 rounded-2xl mb-12 flex flex-col items-center justify-center px-6">
+<div class="transition border-dashed border-[oklch(85%_0.01_var(--hue))] dark:border-white/15 rounded-2xl mb-12 flex flex-col items-center justify-center px-6 bg-[var(--page-bg)]">
     <!-- 站点统计 -->
-    <div class="framework-info text-sm text-center">
+    <div class="framework-info text-sm text-center text-black/75 dark:text-white/75">
         <!-- 新版不蒜子 -->
         <!-- Fix 2: Use https protocol -->
         <script src="https://www.busuanzi.cc/static/3.6.9/busuanzi.min.js" defer></script>
 
         <span>
-            本"<span style="color:hsl(192 98% 55%);font-weight:bold;">页面</span>"阅读
-            <span id="busuanzi_page_pv" style="color:hsl(192 98% 55%);font-weight:bold;">加载中...</span> 次 |
+            本"<span class="text-[var(--primary)] font-bold">页面</span>"阅读
+            <span id="busuanzi_page_pv" class="text-[var(--primary)] font-bold">加载中...</span> 次 |
             👀总访问
-            <span id="busuanzi_site_pv" style="color:hsl(192 98% 55%);font-weight:bold;">加载中...</span> 次 |
+            <span id="busuanzi_site_pv" class="text-[var(--primary)] font-bold">加载中...</span> 次 |
             总访客
-            <span id="busuanzi_site_uv" style="color:hsl(192 98% 55%);font-weight:bold;">加载中...</span> 人
+            <span id="busuanzi_site_uv" class="text-[var(--primary)] font-bold">加载中...</span> 人
         </span>
         <br>
 
         <!-- ICP 备案号 -->
         <!-- Fix 3: Remove trailing spaces in href -->
         <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"
-           style="color:hsl(192 98% 55%);font-weight:bold;">
+           class="text-[var(--primary)] font-bold">
             晋ICP备2025063045号
         </a>
         <br>
 
         <!-- 运行时间 -->
-        <script>
+        <script is:inline>
             function runtime() {
-                // Fix 1: Use a valid past date. Example: July 22, 2023
-                // Note: Month is 0-indexed in JS Date constructor (6 = July)
-                const start = new Date(2025, 7, 22, 8, 0, 0);
+                // 使用正确的建站日期：2025年7月22日
+                // 注意：JavaScript中月份是0索引的 (6 = July)
+                const start = new Date(2025, 6, 22, 8, 0, 0); // 2025年7月22日
                 const now   = new Date();
                 const diff  = now - start;
                 const sec   = Math.floor(diff / 1e3);
 
-                // Handle case where start date might be in the future (error check)
+                // 处理开始日期可能在未来的情况（错误检查）
                 if (sec < 0) {
                      document.getElementById("runningtime").innerHTML = "⏱️运行时间计算中...";
                      return;
                 }
 
                 const day   = Math.floor(sec / 86400);
-                // Fix 1 (clarity): Add parentheses for correct order of operations
                 const hour  = Math.floor((sec % 86400) / 3600);
                 const min   = Math.floor((sec % 3600) / 60);
                 const sec2  = sec % 60;
 
-                document.getElementById("runningtime").innerHTML =
-                    `⏱️本站已运行: ${day}天${hour}小时${min}分${sec2}秒 ☁️`;
+                const runningtimeElement = document.getElementById("runningtime");
+                if (runningtimeElement) {
+                    runningtimeElement.innerHTML =
+                        `⏱️本站已运行: ${day}天${hour}小时${min}分${sec2}秒 ☁️`;
+                }
             }
-            // Fix 1: Call immediately to avoid delay on first load
-            runtime();
-            setInterval(runtime, 1000);
+            
+            // 更加强健的初始化方式，确保在各种设备上都能正常工作
+            function initRuntime() {
+                // 确保DOM元素存在再执行
+                if (document.getElementById("runningtime")) {
+                    runtime();
+                    // 只设置一次interval，避免重复
+                    if (!window.runtimeInterval) {
+                        window.runtimeInterval = setInterval(runtime, 1000);
+                    }
+                }
+            }
+            
+            // 页面加载完成后立即执行一次
+            window.addEventListener('load', initRuntime);
+            
+            // DOM内容加载完成后执行
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initRuntime);
+            } else {
+                // DOM已经加载完成
+                initRuntime();
+            }
+            
+            // 兼容移动端浏览器的额外处理
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden) {
+                    initRuntime();
+                }
+            });
+            
+            // 针对iOS Safari的特殊处理
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                document.addEventListener('pagehide', function() {
+                    if (window.runtimeInterval) {
+                        clearInterval(window.runtimeInterval);
+                        window.runtimeInterval = null;
+                    }
+                });
+                
+                document.addEventListener('pageshow', function() {
+                    initRuntime();
+                });
+            }
         </script>
-        <p id="runningtime"></p>
+        <p id="runningtime" class="text-black/75 dark:text-white/75">⏱️运行时间计算中...</p>
     </div>
 
     <!-- 版权 & 链接 -->
-    <div class="transition text-50 text-sm text-center mt-3">
+    <div class="transition text-50 text-sm text-center mt-3 text-black/50 dark:text-white/50">
         &copy; <span id="copyright-year">{currentYear}</span> {profileConfig.name}. All Rights Reserved. /
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href={url('rss.xml')}>RSS</a> /
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href={url('sitemap-index.xml')}>Sitemap</a><br>

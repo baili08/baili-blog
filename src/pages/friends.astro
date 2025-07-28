@@ -6,40 +6,41 @@ import type { FriendLink } from "@types/config"
 import { siteConfig } from "@config"
 ---
 
-<MainGridLayout title={i18n(I18nKey.friends)} description={i18n(I18nKey.friends)}>
-  <div class="mb-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded">
-    <p class="text-blue-700">
+<MainGridLayout title={i18n(I18nKey.friends)} description={i18n(I18nKey.friends)} class="friends-page">
+  <div class="mb-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded dark:bg-blue-900/30 dark:border-blue-400">
+    <p class="text-blue-700 dark:text-blue-300">
       <i class="fas fa-info-circle mr-2"></i>
       友链列表通过 AJAX 动态加载，数据实时更新。
     </p>
   </div>
   
-  <div id="friends-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div id="friends-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     <!-- 友链将通过 JavaScript 动态加载 -->
-    <div class="col-span-2 text-center py-10">
+    <div class="col-span-full text-center py-10">
       <div class="spinner"></div>
-      <p class="mt-4">加载中...</p>
+      <p class="mt-4 dark:text-white">加载中...</p>
     </div>
   </div>
   
   <div class="mt-10 card-base p-6">
-    <h2 class="text-2xl font-bold mb-5 text-primary">{i18n(I18nKey.about)} {i18n(I18nKey.friends)}</h2>
+    <h2 class="text-2xl font-bold mb-5 text-primary dark:text-white">{i18n(I18nKey.about)} {i18n(I18nKey.friends)}</h2>
     <div class="prose max-w-none">
-      <p class="mb-4 text-lg">
+      <p class="mb-4 text-lg dark:text-white">
         欢迎互换友链！如果您希望与本站互换友链，请通过以下方式联系我：
       </p>
       <ul class="list-disc pl-6 mb-5 space-y-2">
-        <li><strong>网站名称：</strong>{siteConfig.title}</li>
-        <li><strong>网站链接：</strong>{siteConfig.siteUrl || "https://blog.my0811.cn"}</li>
-        <li><strong>网站描述：</strong>{siteConfig.subtitle}</li>
+        <li class="dark:text-white"><strong class="dark:text-white">网站名称：</strong>{siteConfig.title}</li>
+        <li class="dark:text-white"><strong class="dark:text-white">网站链接：</strong>{siteConfig.siteUrl || "https://blog.my0811.cn"}</li>
+        <li class="dark:text-white"><strong class="dark:text-white">网站描述：</strong>{siteConfig.subtitle}</li>
+        <li class="dark:text-white"><strong class="dark:text-white">网站图标：</strong>https://blog.my0811.cn/favicon.ico</li>
       </ul>
-      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
-        <p class="text-blue-700">
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 dark:bg-blue-900/30 dark:border-blue-400">
+        <p class="text-blue-700 dark:text-blue-300">
           <i class="fas fa-info-circle mr-2"></i>
           请确保您的网站内容健康、积极向上，且无违法违规内容。我会定期检查友链，对于失效或内容不当的链接会进行清理。
         </p>
       </div>
-      <p class="text-gray-600 italic">
+      <p class="text-gray-600 italic dark:text-gray-400">
         注意：添加友链前请先添加本站友链，添加后可联系我确认。
       </p>
     </div>
@@ -47,62 +48,62 @@ import { siteConfig } from "@config"
   
   <!-- 友链申请表单 -->
   <div class="mt-10 card-base p-6" id="friendFormContainer">
-    <h2 class="text-2xl font-bold mb-5 text-primary">申请友链</h2>
+    <h2 class="text-2xl font-bold mb-5 text-primary dark:text-white">申请友链</h2>
     <form id="friendForm" class="space-y-4">
       <div>
-        <label for="siteName" class="block text-sm font-medium text-gray-700 mb-1">网站名称 *</label>
+        <label for="siteName" class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300">网站名称 *</label>
         <input 
           type="text" 
           id="siteName" 
           name="siteName" 
           required 
-          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[var(--card-bg)] dark:border-gray-600 dark:text-white transition-colors"
           placeholder="请输入您的网站名称"
         />
       </div>
       
       <div>
-        <label for="siteUrl" class="block text-sm font-medium text-gray-700 mb-1">网站链接 *</label>
+        <label for="siteUrl" class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300">网站链接 *</label>
         <input 
           type="url" 
           id="siteUrl" 
           name="siteUrl" 
           required 
-          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[var(--card-bg)] dark:border-gray-600 dark:text-white transition-colors"
           placeholder="https://example.com"
         />
       </div>
       
       <div>
-        <label for="siteDescription" class="block text-sm font-medium text-gray-700 mb-1">网站描述</label>
+        <label for="siteDescription" class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300">网站描述</label>
         <input 
           type="text" 
           id="siteDescription" 
           name="siteDescription" 
-          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[var(--card-bg)] dark:border-gray-600 dark:text-white transition-colors"
           placeholder="请输入您的网站描述"
         />
       </div>
       
       <div>
-        <label for="siteAvatar" class="block text-sm font-medium text-gray-700 mb-1">网站头像</label>
+        <label for="siteAvatar" class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300">网站图标</label>
         <input 
           type="url" 
           id="siteAvatar" 
           name="siteAvatar" 
-          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[var(--card-bg)] dark:border-gray-600 dark:text-white transition-colors"
           placeholder="https://example.com/avatar.jpg"
         />
       </div>
       
       <div>
-        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">联系邮箱 *</label>
+        <label for="email" class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300">联系邮箱 *</label>
         <input 
           type="email" 
           id="email" 
           name="email" 
           required 
-          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[var(--card-bg)] dark:border-gray-600 dark:text-white transition-colors"
           placeholder="your@email.com"
         />
       </div>
@@ -110,7 +111,7 @@ import { siteConfig } from "@config"
       <div>
         <button 
           type="submit" 
-          class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors"
         >
           提交申请
         </button>
@@ -118,12 +119,12 @@ import { siteConfig } from "@config"
     </form>
     
     <!-- 成功消息 -->
-    <div id="successMessage" class="hidden mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+    <div id="successMessage" class="hidden mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded dark:bg-green-900/30 dark:border-green-400 dark:text-green-300 transition-colors">
       <p>友链申请已提交！我会尽快审核并与您联系。</p>
     </div>
     
     <!-- 错误消息 -->
-    <div id="errorMessage" class="hidden mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+    <div id="errorMessage" class="hidden mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded dark:bg-red-900/30 dark:border-red-400 dark:text-red-300 transition-colors">
       <p>提交失败，请稍后重试。</p>
     </div>
   </div>
@@ -149,7 +150,7 @@ import { siteConfig } from "@config"
           renderFriends(friends);
         } catch (secondaryError) {
           console.error('备用接口加载失败:', secondaryError);
-          document.getElementById('friends-container').innerHTML = '<div class="col-span-2 text-center py-10 text-red-500">加载失败，请检查网络连接</div>';
+          document.getElementById('friends-container').innerHTML = '<div class="col-span-full text-center py-10 text-red-500">加载失败，请检查网络连接</div>';
         }
       }
     }
@@ -159,7 +160,7 @@ import { siteConfig } from "@config"
       const container = document.getElementById('friends-container');
       
       if (friends.length === 0) {
-        container.innerHTML = '<div class="col-span-2 text-center py-10">暂无友链</div>';
+        container.innerHTML = '<div class="col-span-full text-center py-10">暂无友链</div>';
         return;
       }
       
@@ -172,34 +173,38 @@ import { siteConfig } from "@config"
         const description = friend.description || '';
         
         html += `
-          <a 
-            href="${url}" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="block no-underline"
-          >
-            <div class="card-base p-5 flex items-center gap-5 hover:opacity-80 transition-opacity duration-300 transform hover:-translate-y-1">
+          <div class="card-base p-5 flex flex-col hover:opacity-80 transition-opacity duration-300 h-full">
+            <div class="flex flex-col sm:flex-row items-center gap-4 mb-4">
               ${avatar ? `
                 <img 
                   src="${avatar}" 
                   alt="${name}" 
-                  class="w-16 h-16 rounded-full object-cover border-2 border-gray-200"
+                  class="w-16 h-16 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 flex-shrink-0"
                   onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0iI2NjYyI+PGNpcmNsZSBjeD0iOCIgY3k9IjgiIHI9IjgiLz48L3N2Zz4='"
                 />
               ` : `
-                <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
-                  <i class="fa-solid fa-user text-gray-500"></i>
+                <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center dark:bg-gray-700 flex-shrink-0">
+                  <i class="fa-solid fa-user text-gray-500 dark:text-gray-400"></i>
                 </div>
               `}
-              <div class="flex-1 min-w-0">
-                <h3 class="font-bold text-lg truncate text-primary">${name}</h3>
-                ${description ? `<p class="text-sm text-gray-500 truncate mt-1">${description}</p>` : ''}
-              </div>
-              <div class="text-gray-400">
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              <div class="flex-1 min-w-0 text-center sm:text-left">
+                <h3 class="font-bold text-lg truncate dark:text-white">${name}</h3>
+                ${description ? `<p class="text-sm text-gray-500 line-clamp-2 mt-1 dark:text-gray-400 text-center sm:text-left">${description}</p>` : ''}
               </div>
             </div>
-          </a>
+            <div class="mt-auto flex justify-center sm:justify-end">
+              <a 
+                href="${url}" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="btn-regular rounded-md px-4 py-2 flex items-center gap-2 dark:text-white"
+                title="访问网站"
+              >
+                <span>访问网站</span>
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div>
         `;
       });
       
@@ -291,4 +296,5 @@ import { siteConfig } from "@config"
     // 页面加载时获取友链数据
     loadFriends();
   </script>
-</MainGridLayout>
+  
+  </MainGridLayout>

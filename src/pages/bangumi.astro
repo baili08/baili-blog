@@ -93,10 +93,10 @@ try {
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 ---
 
-<MainGridLayout title="Bangumi 追番" description="我的 Bangumi 追番列表">
+<MainGridLayout title="Bangumi 追番" description="我的 Bangumi 追番列表" class="bangumi-page">
   <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
     <div class="card-base z-10 px-4 sm:px-6 py-6 relative w-full">
-      <h1 class="text-2xl font-bold mb-6">我的 Bangumi 追番</h1>
+      <h1 class="text-2xl font-bold mb-6 dark:text-white">我的 Bangumi 追番</h1>
 
       {allDataFetched ? (
         <>
@@ -109,7 +109,7 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
                   id={`tab-${key}`}
                   class={`tab-button px-4 py-2 font-medium text-sm transition-colors duration-200 ${
                     isFirst
-                      ? 'border-b-2 border-primary text-primary'
+                      ? 'border-b-2 border-primary text-primary dark:text-[var(--primary)]'
                       : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
                   }`}
                   data-target={key}
@@ -138,7 +138,7 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
                   >
                     {
                       data[key].length ? (
-                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                                                  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                           {data[key].map((item) => {
                             const s = item.subject;
                             const total = s?.eps || 0;
@@ -147,7 +147,7 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
                             const imageUrl = s?.images?.large || s?.images?.common || '/default-image.png';
 
                             return (
-                              <div class="card-base overflow-hidden transition-transform duration-300 hover:shadow-lg">
+                              <div class="card-base overflow-hidden transition-transform duration-300 hover:shadow-lg dark:bg-[var(--card-bg)]">
                                 <div class="aspect-[3/4] overflow-hidden">
                                   <img
                                     class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
@@ -158,11 +158,11 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
                                   />
                                 </div>
                                 <div class="p-3">
-                                  <h2 class="font-medium text-sm line-clamp-2 mb-2 h-12">{s?.name_cn || s?.name || '未知番剧'}</h2>
+                                  <h2 class="font-medium text-sm line-clamp-2 mb-2 min-h-[2.5rem] dark:text-white">{s?.name_cn || s?.name || '未知番剧'}</h2>
                                   <div class="text-xs">
                                     <div class="flex justify-between mb-1">
-                                      <span>{watched} / {total}</span>
-                                      <span>{percent}%</span>
+                                      <span class="text-gray-600 dark:text-gray-300">{watched} / {total}</span>
+                                      <span class="text-gray-600 dark:text-gray-300">{percent}%</span>
                                     </div>
                                     <!-- 进度条容器 -->
                                     <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
@@ -215,10 +215,17 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
         tab.classList.toggle('border-b-2', isSelected);
         tab.classList.toggle('border-primary', isSelected);
         tab.classList.toggle('text-primary', isSelected);
+        tab.classList.toggle('dark:text-[var(--primary)]', isSelected);
+        
         if (isSelected) {
           tab.classList.remove('text-gray-500', 'hover:text-gray-700', 'dark:text-gray-400', 'dark:hover:text-gray-300');
         } else {
-          tab.classList.add('text-gray-500', 'hover:text-gray-700', 'dark:text-gray-400', 'dark:hover:text-gray-300');
+          tab.classList.add('text-gray-500', 'hover:text-gray-700');
+          tab.classList.remove('text-primary', 'dark:text-[var(--primary)]');
+          // 在暗色模式下，非选中标签应该使用暗色模式的默认颜色
+          if (document.documentElement.classList.contains('dark')) {
+            tab.classList.add('dark:text-gray-400', 'dark:hover:text-gray-300');
+          }
         }
         tab.setAttribute('aria-selected', isSelected.toString());
       });
@@ -263,3 +270,5 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
     overflow: hidden;
   }
 </style>
+
+<!-- Bangumi页面暗色模式样式 -->
