@@ -11,7 +11,9 @@ const { path } = Astro.props
 <script is:inline>
   // Load Twikoo script dynamically
   const script = document.createElement('script');
-  script.src = 'https://cdn.staticfile.org/twikoo/1.6.44/twikoo.all.min.js';
+  script.src = 'https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js';
+  script.integrity = 'sha384-dZ/hSVfTPHuzXyECOYCetAvMd0cgqWxN5Fh+mwo86PV4GdU9xgQ/MNzh/YM/lotR';
+  script.crossOrigin = 'anonymous';
   script.onload = () => {
     // Initialize Twikoo after script is loaded
     twikoo.init({
