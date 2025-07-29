@@ -3,7 +3,7 @@ interface Props {
 	path: string;
 }
 
-const { path } = Astro.props;
+// const { path } = Astro.props;
 ---
 
 <div id="tcomment"></div>
@@ -20,7 +20,7 @@ const { path } = Astro.props;
       envId: 'https://twikoo0811.netlify.app/.netlify/functions/twikoo',
       el: '#tcomment',
       lang: 'zh-CN',
-      path: '{path}',
+      path: '{Astro.props.path}',
     });
   };
   document.head.appendChild(script);

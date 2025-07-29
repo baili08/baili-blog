@@ -95,7 +95,7 @@ try {
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 ---
 
-<MainGridLayout title="Bangumi 追番" description="我的 Bangumi 追番列表" class="bangumi-page">
+<MainGridLayout title="Bangumi 追番" description="我的 Bangumi 追番列表">
   <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
     <div class="card-base z-10 px-4 sm:px-6 py-6 relative w-full">
       <h1 class="text-2xl font-bold mb-6 dark:text-white">我的 Bangumi 追番</h1>
@@ -128,7 +128,7 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
           <!-- 标签页内容 -->
           <div class="mt-4 bangumi-content-container">
             {
-              cats.map(({ key, name }, index) => {
+              cats.map(({ key }, index) => {
                 const isFirst = index === 0;
                 return (
                   <section
