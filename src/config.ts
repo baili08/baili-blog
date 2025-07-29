@@ -4,6 +4,7 @@ import type {
 	NavBarConfig,
 	ProfileConfig,
 	SiteConfig,
+	TwikooConfig,
 } from "./types/config";
 import { LinkPreset } from "./types/config";
 
@@ -15,6 +16,8 @@ export const siteConfig: SiteConfig = {
 		hue: 230, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
 		fixed: true, // Hide the theme color picker for visitors
 	},
+	description: "百里博客是一个关注技术、编程、网络安全和日常生活的个人博客，分享Python脚本、网站开发、步数作弊等技术内容",
+	keywords: ["百里博客", "高中生博客", "技术博客", "Python", "编程", "网络安全", "步数作弊", "Zeep Life", "自动化"],
 	banner: {
 		enable: true,
 		src: "https://t.alcy.cc/ys", // 修正：移除了末尾的空格
@@ -89,4 +92,10 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 	// Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
 	// Please select a dark theme, as this blog theme currently only supports dark background color
 	theme: "github-dark",
+};
+
+// Twikoo 评论系统配置
+export const twikooConfig: TwikooConfig = {
+	envId: "https://twikoo0811.netlify.app/.netlify/functions/twikoo", // Twikoo environment ID
+	lang: "zh-CN", // Language for the comment system
 };

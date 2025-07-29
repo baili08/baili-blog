@@ -20,7 +20,7 @@ export const LinkPresets: { [key in LinkPreset]: NavBarLink } = {
 		url: "/friends/",
 	},
 	[LinkPreset.Bangumi]: {
-		name: "Bangumi",
+		name: "追番",
 		url: "/bangumi/",
 	},
 };

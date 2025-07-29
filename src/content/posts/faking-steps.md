@@ -3,7 +3,7 @@ title: 使用 Python 脚本一键步数作弊
 
 published: 2025-07-25
 
-description: '分享一个调用三方接口进行步数作弊的python程序'
+description: '通过Python脚本实现Zeep Life步数修改，自动化提交指定步数，集成PushMe通知功能'
 
 image: https://r2.baili.cfd/20250725.png
 

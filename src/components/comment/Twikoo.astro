@@ -1,0 +1,25 @@
+---
+interface Props {
+  path: string
+}
+
+const { path } = Astro.props
+---
+
+<div id="tcomment"></div>
+
+<script is:inline>
+  // Load Twikoo script dynamically
+  const script = document.createElement('script');
+  script.src = 'https://cdn.staticfile.org/twikoo/1.6.44/twikoo.all.min.js';
+  script.onload = () => {
+    // Initialize Twikoo after script is loaded
+    twikoo.init({
+      envId: 'https://twikoo0811.netlify.app/.netlify/functions/twikoo',
+      el: '#tcomment',
+      lang: 'zh-CN',
+      path: '{path}',
+    });
+  };
+  document.head.appendChild(script);
+</script>

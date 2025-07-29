@@ -1,0 +1,16 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { twikooConfig } from '@/config'
+import Twikoo from './Twikoo.astro'
+
+interface Props {
+  post: CollectionEntry<'posts'>
+}
+
+const { slug } = Astro.props.post
+const path = `/posts/${slug}`
+
+const useTwikoo = !!twikooConfig?.envId
+---
+
+{useTwikoo && <Twikoo path={path} />}

@@ -100,3 +100,9 @@ export type FriendLink = {
 	avatar?: string;
 	description?: string;
 };
+
+// Twikoo 评论系统配置类型
+export type TwikooConfig = {
+	envId: string;
+	lang: string;
+};
