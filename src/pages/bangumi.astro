@@ -2,92 +2,94 @@
 // src/pages/bangumi.astro
 
 const uid = 1064527;
-const token = '0qdjIscJimDIYTB9ImKOMWl206uQxVtrBA1BnCRK';
-const base = 'https://api.bgm.tv/v0';
+const token = "0qdjIscJimDIYTB9ImKOMWl206uQxVtrBA1BnCRK";
+const base = "https://api.bgm.tv/v0";
 
 // --- 类型定义 ---
-type Cat = 'watching' | 'wish' | 'collect';
+type Cat = "watching" | "wish" | "collect";
 type CatNum = 3 | 1 | 2;
 
 interface Image {
-  large?: string;
-  common?: string;
-  medium?: string;
-  small?: string;
-  grid?: string;
+	large?: string;
+	common?: string;
+	medium?: string;
+	small?: string;
+	grid?: string;
 }
 
 interface Subject {
-  id: number;
-  type: number;
-  name: string;
-  name_cn: string;
-  eps?: number;
-  images?: Image;
+	id: number;
+	type: number;
+	name: string;
+	name_cn: string;
+	eps?: number;
+	images?: Image;
 }
 
 interface CollectionItem {
-  subject_id: number;
-  subject: Subject;
-  ep_status: number;
-  type: CatNum;
+	subject_id: number;
+	subject: Subject;
+	ep_status: number;
+	type: CatNum;
 }
 
 interface CollectionResponse {
-  data: CollectionItem[];
-  limit: number;
-  offset: number;
-  total: number;
+	data: CollectionItem[];
+	limit: number;
+	offset: number;
+	total: number;
 }
 
 const cats: { key: Cat; name: string; type: CatNum }[] = [
-  { key: 'watching', name: '在看', type: 3 },
-  { key: 'wish',     name: '想看', type: 1 },
-  { key: 'collect',  name: '看完', type: 2 },
+	{ key: "watching", name: "在看", type: 3 },
+	{ key: "wish", name: "想看", type: 1 },
+	{ key: "collect", name: "看完", type: 2 },
 ];
 
 // --- 数据获取 ---
 async function fetchOnce(type: CatNum): Promise<CollectionItem[]> {
-  try {
-    const res = await fetch(
-      `${base}/users/${uid}/collections?subject_type=2&type=${type}&limit=50`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+	try {
+		const res = await fetch(
+			`${base}/users/${uid}/collections?subject_type=2&type=${type}&limit=50`,
+			{ headers: { Authorization: `Bearer ${token}` } },
+		);
 
-    if (!res.ok) {
-      console.error(`Bangumi API Error (${type}): ${res.status} ${await res.text()}`);
-      return [];
-    }
+		if (!res.ok) {
+			console.error(
+				`Bangumi API Error (${type}): ${res.status} ${await res.text()}`,
+			);
+			return [];
+		}
 
-    const json: CollectionResponse = await res.json();
+		const json: CollectionResponse = await res.json();
 
-    if (!Array.isArray(json.data)) {
-      console.error(`Bangumi API (${type}): Unexpected response format`, json);
-      return [];
-    }
+		if (!Array.isArray(json.data)) {
+			console.error(`Bangumi API (${type}): Unexpected response format`, json);
+			return [];
+		}
 
-    return json.data;
-  } catch (err) {
-    console.error(`Failed to fetch collections for type ${type}:`, err);
-    return [];
-  }
+		return json.data;
+	} catch (err) {
+		console.error(`Failed to fetch collections for type ${type}:`, err);
+		return [];
+	}
 }
 
 let allDataFetched = true;
 const data: Record<Cat, CollectionItem[]> = {
-  watching: [],
-  wish: [],
-  collect: []
+	watching: [],
+	wish: [],
+	collect: [],
 };
 
 try {
-  const results = await Promise.all(cats.map(({ type }) => fetchOnce(type)));
-  cats.forEach(({ key }, index) => {
-    data[key] = results[index];
-  });
+	const results = await Promise.all(cats.map(({ type }) => fetchOnce(type)));
+	cats.forEach(({ key }, index) => {
+		data[key] = results[index];
+	});
 } catch (err) {
-  console.error("Error fetching all collections:", err);
-  allDataFetched = false;
+	console.error("Error fetching all collections:", err);
+	allDataFetched = false;
 }
 
 import MainGridLayout from "../layouts/MainGridLayout.astro";

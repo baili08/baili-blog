@@ -1,16 +1,16 @@
 ---
-import type { CollectionEntry } from 'astro:content'
-import { twikooConfig } from '@/config'
-import Twikoo from './Twikoo.astro'
+import type { CollectionEntry } from "astro:content";
+import { twikooConfig } from "@/config";
+import Twikoo from "./Twikoo.astro";
 
 interface Props {
-  post: CollectionEntry<'posts'>
+	post: CollectionEntry<"posts">;
 }
 
-const { slug } = Astro.props.post
-const path = `/posts/${slug}`
+const { slug } = Astro.props.post;
+const path = `/posts/${slug}`;
 
-const useTwikoo = !!twikooConfig?.envId
+const useTwikoo = !!twikooConfig?.envId;
 ---
 
 {useTwikoo && <Twikoo path={path} />}
