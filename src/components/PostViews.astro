@@ -42,7 +42,7 @@ const className = Astro.props.class
             endAt: Date.now().toString(),
             unit: 'hour',
             timezone: umamiConfig.timezone,
-            url: `/posts/${slug}/`,
+            url: `/posts/${slug.toLowerCase()}/`,
             compare: 'false',
           }),
         { headers: { 'x-umami-share-token': token } }

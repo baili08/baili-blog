@@ -12,6 +12,7 @@ interface Props {
 	updated?: Date;
 	tags: string[];
 	category: string | null;
+	entry?: { slug: string };
 	hideTagsForMobile?: boolean;
 	hideUpdateDate?: boolean;
 }
@@ -20,6 +21,7 @@ const {
 	updated,
 	tags,
 	category,
+	entry,
 	hideTagsForMobile = false,
 	hideUpdateDate = false,
 } = Astro.props;
@@ -63,7 +65,8 @@ const className = Astro.props.class;
     </div>
 
     <!-- tags -->
-    <div class:list={["items-center", {"flex": !hideTagsForMobile, "hidden md:flex": hideTagsForMobile}]}>        <div class="meta-icon"
+    <div class={`items-center ${!hideTagsForMobile ? 'flex' : 'hidden md:flex'}`}>
+        <div class="meta-icon"
         >
             <Icon name="material-symbols:tag-rounded" class="text-xl"></Icon>
         </div>
@@ -81,5 +84,5 @@ const className = Astro.props.class;
     </div>
 
     <!-- page views -->
-    <PostViews slug={Astro.props.entry?.slug} />
+    {entry && <PostViews slug={entry.slug} />}
 </div>
