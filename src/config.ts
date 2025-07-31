@@ -5,6 +5,7 @@ import type {
 	ProfileConfig,
 	SiteConfig,
 	TwikooConfig,
+	UmamiConfig,
 } from "./types/config";
 import { LinkPreset } from "./types/config";
 
@@ -109,4 +110,12 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 export const twikooConfig: TwikooConfig = {
 	envId: "https://twikoo0811.netlify.app/.netlify/functions/twikoo", // Twikoo environment ID
 	lang: "zh-CN", // Language for the comment system
+};
+
+// Umami 浏览量配置
+export const umamiConfig: UmamiConfig = {
+	enable: true,
+	baseUrl: 'https://umami.baili.cfd',   // 换成你自己的 Umami 域名
+	shareId: 'JHgyur0RQiPiNSSY',      // 换成你自己的 shareId
+	timezone: 'Asia/Shanghai',
 };

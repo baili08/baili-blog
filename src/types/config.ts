@@ -108,3 +108,11 @@ export type TwikooConfig = {
 	envId: string;
 	lang: string;
 };
+
+// Umami 浏览量配置类型
+export type UmamiConfig = {
+	enable: boolean;
+	baseUrl: string;
+	shareId: string;
+	timezone: string;
+};

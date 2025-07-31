@@ -1,0 +1,58 @@
+---
+import { Icon } from "astro-icon/components";
+import { umamiConfig } from '@/config'
+
+export interface Props {
+  slug: string
+  class?: string
+}
+const { slug } = Astro.props
+const className = Astro.props.class
+---
+
+{umamiConfig.enable && (
+  <span id={`page-views-${slug}`} class:list={["text-sm text-fg-deeper flex items-center", className]}>
+    <div class="meta-icon">
+      <Icon name="ic:baseline-remove-red-eye" class="text-xl"></Icon>
+    </div>
+    <span id={`page-views-text-${slug}`} class="text-50 text-sm font-medium">加载中…</span>
+  </span>
+)}
+
+<script define:vars={{ umamiConfig, slug }}>
+  (async () => {
+    if (!umamiConfig.enable) return
+
+    const display = document.getElementById(`page-views-text-${slug}`)
+    if (!display) return
+
+    try {
+      // 1. 拿 token
+      const shareRes = await fetch(
+        `${umamiConfig.baseUrl}/api/share/${umamiConfig.shareId}`
+      )
+      if (!shareRes.ok) throw new Error('share')
+      const { websiteId, token } = await shareRes.json()
+
+      // 2. 拿统计
+      const statsRes = await fetch(
+        `${umamiConfig.baseUrl}/api/websites/${websiteId}/stats?` +
+          new URLSearchParams({
+            startAt: '0',
+            endAt: Date.now().toString(),
+            unit: 'hour',
+            timezone: umamiConfig.timezone,
+            url: `/posts/${slug}/`,
+            compare: 'false',
+          }),
+        { headers: { 'x-umami-share-token': token } }
+      )
+      if (!statsRes.ok) throw new Error('stats')
+      const { pageviews, visits } = await statsRes.json()
+
+      display.textContent = `浏览 ${pageviews?.value || 0}`
+    } catch {
+      display.textContent = '统计不可用'
+    }
+  })()
+</script>

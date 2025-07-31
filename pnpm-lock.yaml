@@ -22,10 +22,10 @@ importers:
         version: 3.4.1
       '@astrojs/svelte':
         specifier: 7.1.0
-        version: 7.1.0(astro@5.10.2)(stylus@0.64.0)(svelte@5.36.16)(typescript@5.8.3)
+        version: 7.1.0(@types/node@24.1.0)(astro@5.10.2(@types/node@24.1.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(typescript@5.8.3)(yaml@2.8.0))(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(svelte@5.36.16)(terser@5.43.1)(typescript@5.8.3)(yaml@2.8.0)
       '@astrojs/tailwind':
         specifier: ^6.0.2
-        version: 6.0.2(astro@5.10.2)(tailwindcss@3.4.17)
+        version: 6.0.2(astro@5.10.2(@types/node@24.1.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(typescript@5.8.3)(yaml@2.8.0))(tailwindcss@3.4.17)
       '@expressive-code/core':
         specifier: ^0.41.2
         version: 0.41.3
@@ -50,6 +50,9 @@ importers:
       '@iconify-json/fa6-solid':
         specifier: ^1.2.3
         version: 1.2.4
+      '@iconify-json/ic':
+        specifier: ^1.2.2
+        version: 1.2.2
       '@iconify-json/material-symbols':
         specifier: ^1.2.28
         version: 1.2.30
@@ -64,10 +67,10 @@ importers:
         version: 0.5.16(tailwindcss@3.4.17)
       astro:
         specifier: 5.10.2
-        version: 5.10.2(rollup@2.79.2)(stylus@0.64.0)(typescript@5.8.3)
+        version: 5.10.2(@types/node@24.1.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(typescript@5.8.3)(yaml@2.8.0)
       astro-expressive-code:
         specifier: ^0.41.2
-        version: 0.41.3(astro@5.10.2)
+        version: 0.41.3(astro@5.10.2(@types/node@24.1.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(typescript@5.8.3)(yaml@2.8.0))
       astro-icon:
         specifier: ^1.1.5
         version: 1.1.5
@@ -230,6 +233,7 @@ packages:
 
   '@astrojs/svelte@7.1.0':
     resolution: {integrity: sha512-nNAO7iFgCZXCN31N4xBSS/k7vZAZxeZ/v8V6VWZOKG47gVlxeAJBHzn2GlXMMVkxIamr6dhrkDrhYFKIPzoGpw==}
+    version: 7.1.0
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0}
     peerDependencies:
       astro: ^5.0.0
@@ -238,6 +242,7 @@ packages:
 
   '@astrojs/tailwind@6.0.2':
     resolution: {integrity: sha512-j3mhLNeugZq6A8dMNXVarUa8K6X9AW+QHU9u3lKNrPLMHhOQ0S7VeWhHwEeJFpEK1BTKEUY1U78VQv2gN6hNGg==}
+    version: 6.0.2
     peerDependencies:
       astro: ^3.0.0 || ^4.0.0 || ^5.0.0
       tailwindcss: ^3.0.24
@@ -1101,6 +1106,9 @@ packages:
   '@iconify-json/fa6-solid@1.2.4':
     resolution: {integrity: sha512-LmDNNdJVyvF5mPm1yxWvL8KjCc/E8LzoqnF1LNTVpyY2ZJRUlGOWuPIThdbuFBF2IovgttkIyumhyqfmlHdwKg==}
 
+  '@iconify-json/ic@1.2.2':
+    resolution: {integrity: sha512-QmjwS3lYiOmVWgTCEOTFyGODaR/+689+ajep/VsrCcsUN0Gdle5PmIcibDsdmRyrOsW/E77G41UUijdbjQUofw==}
+
   '@iconify-json/material-symbols@1.2.30':
     resolution: {integrity: sha512-3dA1jxkCd8LqEaAWjwQ5tob4pJNKE59Bz604AL1GP3Kyv//pR3un3cIyAUWOFQS1lz0vKKkn0BKOCmcUDi1G8A==}
 
@@ -1639,6 +1647,7 @@ packages:
 
   '@sveltejs/vite-plugin-svelte-inspector@4.0.1':
     resolution: {integrity: sha512-J/Nmb2Q2y7mck2hyCX4ckVHcR5tu2J+MtBEQqpDrrgELZ2uvraQcK/ioCV61AqkdXFgriksOKIceDcQmqnGhVw==}
+    version: 4.0.1
     engines: {node: ^18.0.0 || ^20.0.0 || >=22}
     peerDependencies:
       '@sveltejs/vite-plugin-svelte': ^5.0.0
@@ -1647,6 +1656,7 @@ packages:
 
   '@sveltejs/vite-plugin-svelte@5.1.1':
     resolution: {integrity: sha512-Y1Cs7hhTc+a5E9Va/xwKlAJoariQyHY+5zBgCZg4PFWNYQ1nMN9sjK1zhw1gK69DuqVP++sht/1GZg1aRwmAXQ==}
+    version: 5.1.1
     engines: {node: ^18.0.0 || ^20.0.0 || >=22}
     peerDependencies:
       svelte: ^5.0.0
@@ -1923,6 +1933,7 @@ packages:
 
   astro-expressive-code@0.41.3:
     resolution: {integrity: sha512-u+zHMqo/QNLE2eqYRCrK3+XMlKakv33Bzuz+56V1gs8H0y6TZ0hIi3VNbIxeTn51NLn+mJfUV/A0kMNfE4rANw==}
+    version: 0.41.3
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0
 
@@ -1931,6 +1942,7 @@ packages:
 
   astro@5.10.2:
     resolution: {integrity: sha512-CCBU+e/Apk6NWEMnc/R9dVZD/+FaCnNqWJicX1Oe6T18vLKop+LPs/m/88ekJk4zxP1g1N/GfUq4wEedUSk1Wg==}
+    version: 5.10.2
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -4482,7 +4494,6 @@ packages:
 
   stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz:
     resolution: {tarball: https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz}
-    name: stylus
     version: 0.64.0
     engines: {node: '>=16'}
     hasBin: true
@@ -4817,6 +4828,7 @@ packages:
 
   vite@6.3.5:
     resolution: {integrity: sha512-cZn6NDFE7wdTpINgs++ZJ4N49W2vRp8LCKrn3Ob1kYNtOo21vfDoaV5GzBfLU4MovSAB8uNRm4jgzVQZ+mBzPQ==}
+    version: 6.3.5
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -4857,6 +4869,7 @@ packages:
 
   vitefu@1.1.1:
     resolution: {integrity: sha512-B/Fegf3i8zh0yFbpzZ21amWzHmuNlLlmJT6n7bu5e+pCHUKQIfXSYokrqOBGEMMe9UG2sostKQF9mml/vYaWJQ==}
+    version: 1.1.1
     peerDependencies:
       vite: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0-beta.0
     peerDependenciesMeta:
@@ -5200,14 +5213,14 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 3.25.76
 
-  '@astrojs/svelte@7.1.0(astro@5.10.2)(stylus@0.64.0)(svelte@5.36.16)(typescript@5.8.3)':
+  '@astrojs/svelte@7.1.0(@types/node@24.1.0)(astro@5.10.2(@types/node@24.1.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(typescript@5.8.3)(yaml@2.8.0))(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(svelte@5.36.16)(terser@5.43.1)(typescript@5.8.3)(yaml@2.8.0)':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 5.1.1(svelte@5.36.16)(vite@6.3.5)
-      astro: 5.10.2(rollup@2.79.2)(stylus@0.64.0)(typescript@5.8.3)
+      '@sveltejs/vite-plugin-svelte': 5.1.1(svelte@5.36.16)(vite@6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0))
+      astro: 5.10.2(@types/node@24.1.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(typescript@5.8.3)(yaml@2.8.0)
       svelte: 5.36.16
       svelte2tsx: 0.7.41(svelte@5.36.16)(typescript@5.8.3)
       typescript: 5.8.3
-      vite: 6.3.5(stylus@0.64.0)
+      vite: 6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -5222,9 +5235,9 @@ snapshots:
       - tsx
       - yaml
 
-  '@astrojs/tailwind@6.0.2(astro@5.10.2)(tailwindcss@3.4.17)':
+  '@astrojs/tailwind@6.0.2(astro@5.10.2(@types/node@24.1.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(typescript@5.8.3)(yaml@2.8.0))(tailwindcss@3.4.17)':
     dependencies:
-      astro: 5.10.2(rollup@2.79.2)(stylus@0.64.0)(typescript@5.8.3)
+      astro: 5.10.2(@types/node@24.1.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(typescript@5.8.3)(yaml@2.8.0)
       autoprefixer: 10.4.21(postcss@8.5.6)
       postcss: 8.5.6
       postcss-load-config: 4.0.2(postcss@8.5.6)
@@ -6197,6 +6210,10 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
+  '@iconify-json/ic@1.2.2':
+    dependencies:
+      '@iconify/types': 2.0.0
+
   '@iconify-json/material-symbols@1.2.30':
     dependencies:
       '@iconify/types': 2.0.0
@@ -6503,8 +6520,9 @@ snapshots:
     dependencies:
       '@rollup/pluginutils': 5.2.0(rollup@2.79.2)
       js-yaml: 4.1.0
-      rollup: 2.79.2
       tosource: 2.0.0-alpha.3
+    optionalDependencies:
+      rollup: 2.79.2
 
   '@rollup/pluginutils@3.1.0(rollup@2.79.2)':
     dependencies:
@@ -6523,6 +6541,7 @@ snapshots:
       '@types/estree': 1.0.8
       estree-walker: 2.0.2
       picomatch: 4.0.3
+    optionalDependencies:
       rollup: 2.79.2
 
   '@rollup/rollup-android-arm-eabi@4.45.1':
@@ -6629,25 +6648,25 @@ snapshots:
     dependencies:
       acorn: 8.15.0
 
-  '@sveltejs/vite-plugin-svelte-inspector@4.0.1(@sveltejs/vite-plugin-svelte@5.1.1)(svelte@5.36.16)(vite@6.3.5)':
+  '@sveltejs/vite-plugin-svelte-inspector@4.0.1(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.36.16)(vite@6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0)))(svelte@5.36.16)(vite@6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 5.1.1(svelte@5.36.16)(vite@6.3.5)
+      '@sveltejs/vite-plugin-svelte': 5.1.1(svelte@5.36.16)(vite@6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0))
       debug: 4.4.1
       svelte: 5.36.16
-      vite: 6.3.5(stylus@0.64.0)
+      vite: 6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.36.16)(vite@6.3.5)':
+  '@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.36.16)(vite@6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte-inspector': 4.0.1(@sveltejs/vite-plugin-svelte@5.1.1)(svelte@5.36.16)(vite@6.3.5)
+      '@sveltejs/vite-plugin-svelte-inspector': 4.0.1(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.36.16)(vite@6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0)))(svelte@5.36.16)(vite@6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0))
       debug: 4.4.1
       deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.30.17
       svelte: 5.36.16
-      vite: 6.3.5(stylus@0.64.0)
-      vitefu: 1.1.1(vite@6.3.5)
+      vite: 6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0)
+      vitefu: 1.1.1(vite@6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0))
     transitivePeerDependencies:
       - supports-color
 
@@ -6990,9 +7009,9 @@ snapshots:
       get-intrinsic: 1.3.0
       is-array-buffer: 3.0.5
 
-  astro-expressive-code@0.41.3(astro@5.10.2):
+  astro-expressive-code@0.41.3(astro@5.10.2(@types/node@24.1.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(typescript@5.8.3)(yaml@2.8.0)):
     dependencies:
-      astro: 5.10.2(rollup@2.79.2)(stylus@0.64.0)(typescript@5.8.3)
+      astro: 5.10.2(@types/node@24.1.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(typescript@5.8.3)(yaml@2.8.0)
       rehype-expressive-code: 0.41.3
 
   astro-icon@1.1.5:
@@ -7004,7 +7023,7 @@ snapshots:
       - debug
       - supports-color
 
-  astro@5.10.2(rollup@2.79.2)(stylus@0.64.0)(typescript@5.8.3):
+  astro@5.10.2(@types/node@24.1.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(typescript@5.8.3)(yaml@2.8.0):
     dependencies:
       '@astrojs/compiler': 2.12.2
       '@astrojs/internal-helpers': 0.6.1
@@ -7059,8 +7078,8 @@ snapshots:
       unist-util-visit: 5.0.0
       unstorage: 1.16.1
       vfile: 6.0.3
-      vite: 6.3.5(stylus@0.64.0)
-      vitefu: 1.1.1(vite@6.3.5)
+      vite: 6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0)
+      vitefu: 1.1.1(vite@6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0))
       xxhash-wasm: 1.1.0
       yargs-parser: 21.1.1
       yocto-spinner: 0.2.3
@@ -7873,7 +7892,7 @@ snapshots:
       pend: 1.2.0
 
   fdir@6.4.6(picomatch@4.0.3):
-    dependencies:
+    optionalDependencies:
       picomatch: 4.0.3
 
   figures@1.7.0:
@@ -9400,14 +9419,16 @@ snapshots:
   postcss-load-config@3.1.4(postcss@8.5.6):
     dependencies:
       lilconfig: 2.1.0
-      postcss: 8.5.6
       yaml: 1.10.2
+    optionalDependencies:
+      postcss: 8.5.6
 
   postcss-load-config@4.0.2(postcss@8.5.6):
     dependencies:
       lilconfig: 3.1.3
-      postcss: 8.5.6
       yaml: 2.8.0
+    optionalDependencies:
+      postcss: 8.5.6
 
   postcss-merge-longhand@5.1.7(postcss@8.5.6):
     dependencies:
@@ -9931,9 +9952,10 @@ snapshots:
     dependencies:
       open: 8.4.2
       picomatch: 4.0.3
-      rollup: 2.79.2
       source-map: 0.7.6
       yargs: 17.7.2
+    optionalDependencies:
+      rollup: 2.79.2
 
   rollup-pluginutils@2.8.2:
     dependencies:
@@ -10452,7 +10474,7 @@ snapshots:
   ts-interface-checker@0.1.13: {}
 
   tsconfck@3.1.6(typescript@5.8.3):
-    dependencies:
+    optionalDependencies:
       typescript: 5.8.3
 
   tslib@2.8.1: {}
@@ -10662,69 +10684,80 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.2
 
-  vite@6.3.5(stylus@0.64.0):
+  vite@6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0):
     dependencies:
       esbuild: 0.25.8
       fdir: 6.4.6(picomatch@4.0.3)
       picomatch: 4.0.3
       postcss: 8.5.6
       rollup: 4.45.1
-      stylus: https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz
       tinyglobby: 0.2.14
     optionalDependencies:
+      '@types/node': 24.1.0
       fsevents: 2.3.3
+      jiti: 1.21.7
+      stylus: https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz
+      terser: 5.43.1
+      yaml: 2.8.0
 
-  vitefu@1.1.1(vite@6.3.5):
-    dependencies:
-      vite: 6.3.5(stylus@0.64.0)
+  vitefu@1.1.1(vite@6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0)):
+    optionalDependencies:
+      vite: 6.3.5(@types/node@24.1.0)(jiti@1.21.7)(stylus@https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz)(terser@5.43.1)(yaml@2.8.0)
 
   volar-service-css@0.0.62(@volar/language-service@2.4.20):
     dependencies:
-      '@volar/language-service': 2.4.20
       vscode-css-languageservice: 6.3.7
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.1.0
+    optionalDependencies:
+      '@volar/language-service': 2.4.20
 
   volar-service-emmet@0.0.62(@volar/language-service@2.4.20):
     dependencies:
       '@emmetio/css-parser': 0.4.0
       '@emmetio/html-matcher': 1.3.0
-      '@volar/language-service': 2.4.20
       '@vscode/emmet-helper': 2.11.0
       vscode-uri: 3.1.0
+    optionalDependencies:
+      '@volar/language-service': 2.4.20
 
   volar-service-html@0.0.62(@volar/language-service@2.4.20):
     dependencies:
-      '@volar/language-service': 2.4.20
       vscode-html-languageservice: 5.5.1
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.1.0
+    optionalDependencies:
+      '@volar/language-service': 2.4.20
 
   volar-service-prettier@0.0.62(@volar/language-service@2.4.20):
     dependencies:
-      '@volar/language-service': 2.4.20
       vscode-uri: 3.1.0
+    optionalDependencies:
+      '@volar/language-service': 2.4.20
 
   volar-service-typescript-twoslash-queries@0.0.62(@volar/language-service@2.4.20):
     dependencies:
-      '@volar/language-service': 2.4.20
       vscode-uri: 3.1.0
+    optionalDependencies:
+      '@volar/language-service': 2.4.20
 
   volar-service-typescript@0.0.62(@volar/language-service@2.4.20):
     dependencies:
-      '@volar/language-service': 2.4.20
       path-browserify: 1.0.1
       semver: 7.7.2
       typescript-auto-import-cache: 0.3.6
       vscode-languageserver-textdocument: 1.0.12
       vscode-nls: 5.2.0
       vscode-uri: 3.1.0
+    optionalDependencies:
+      '@volar/language-service': 2.4.20
 
   volar-service-yaml@0.0.62(@volar/language-service@2.4.20):
     dependencies:
-      '@volar/language-service': 2.4.20
       vscode-uri: 3.1.0
       yaml-language-server: 1.15.0
+    optionalDependencies:
+      '@volar/language-service': 2.4.20
 
   vscode-css-languageservice@6.3.7:
     dependencies:
