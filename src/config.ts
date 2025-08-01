@@ -115,7 +115,7 @@ export const twikooConfig: TwikooConfig = {
 // Umami 浏览量配置
 export const umamiConfig: UmamiConfig = {
 	enable: true,
-	baseUrl: 'https://umami.baili.cfd',   // 换成你自己的 Umami 域名
-	shareId: 'JHgyur0RQiPiNSSY',      // 换成你自己的 shareId
-	timezone: 'Asia/Shanghai',
+	baseUrl: "https://umami.baili.cfd", // 换成你自己的 Umami 域名
+	shareId: "JHgyur0RQiPiNSSY", // 换成你自己的 shareId
+	timezone: "Asia/Shanghai",
 };

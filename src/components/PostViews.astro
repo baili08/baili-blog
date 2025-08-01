@@ -1,13 +1,13 @@
 ---
 import { Icon } from "astro-icon/components";
-import { umamiConfig } from '@/config'
+import { umamiConfig } from "@/config";
 
 export interface Props {
-  slug: string
-  class?: string
+	slug: string;
+	class?: string;
 }
-const { slug } = Astro.props
-const className = Astro.props.class
+const { slug } = Astro.props;
+const className = Astro.props.class;
 ---
 
 {umamiConfig.enable && (
