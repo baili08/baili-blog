@@ -1,5 +1,23 @@
 [
     {
+        "name": "星辰の笔记",
+        "url": "https:\/\/blog.strarry.top\/",
+        "avatar": "https:\/\/blog.strarry.top\/avatar.jpg",
+        "description": "Code | Think | Share | Repeat"
+    },
+    {
+        "name": "Tavre Blog",
+        "url": "https:\/\/blog.tsd.my",
+        "avatar": "https:\/\/q1.qlogo.cn\/g?b=qq&amp;nk=2987304764&amp;s=640",
+        "description": "茫茫大海 我与你相遇"
+    },
+    {
+        "name": "随思南游",
+        "url": "https:\/\/www.ssnur.com\/",
+        "avatar": "https:\/\/ssnur.com\/tx.jpg",
+        "description": "生如夏欢之绚烂，死如秋叶之静"
+    },
+    {
         "name": "碧水荡漾",
         "url": "https:\/\/blog.yvyang.fun\/",
         "avatar": "https:\/\/blog.yvyang.fun\/favicon.webp",

@@ -63,8 +63,8 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Bangumi, // 添加Bangumi页面链接
 		{
 			name: "统计",
-			url: "https://cloud.umami.is/share/R6X4yAVAANX0pcH9/blog.my0811.cn", // 修正：移除了末尾的空格
-			external: true, // 修正：GitHub 链接应为外部链接，设置为 true
+			url: "https://umami.baili.cfd/share/JHgyur0RQiPiNSSY/blog.my0811.cn",
+			external: true,
 		},
 	],
 };

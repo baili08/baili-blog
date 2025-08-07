@@ -1,0 +1,211 @@
+.friendsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.friendCard {
+  border-radius: var(--radius-large);
+  background: var(--card-bg);
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.friendCard:hover {
+  opacity: 0.8;
+}
+
+.friendInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  flex: 1;
+}
+
+@media (min-width: 640px) {
+  .friendInfo {
+    flex-direction: row;
+    text-align: left;
+  }
+}
+
+.friendAvatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--line-color);
+  flex-shrink: 0;
+}
+
+.friendAvatarPlaceholder {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: var(--btn-regular-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.friendDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.friendName {
+  font-weight: bold;
+  font-size: 1.125rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.friendDescription {
+  font-size: 0.875rem;
+  color: var(--text-50);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.visitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-large);
+  background: var(--btn-regular-bg);
+  color: var(--btn-content);
+  transition: all 0.3s ease;
+  margin-top: auto;
+  width: 100%;
+}
+
+.visitButton:hover {
+  background: var(--btn-regular-bg-hover);
+}
+
+@media (min-width: 640px) {
+  .visitButton {
+    width: auto;
+    margin-top: 0;
+  }
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formLabel {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: var(--text-75);
+}
+
+.formInput {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--line-color);
+  border-radius: var(--radius-large);
+  background: var(--card-bg);
+  color: var(--text-90);
+  transition: all 0.3s ease;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+}
+
+.submitButton {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-large);
+  background: var(--primary);
+  color: white;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submitButton:hover {
+  opacity: 0.9;
+}
+
+.submitButton:active {
+  transform: scale(0.98);
+}
+
+.alert {
+  padding: 1rem;
+  border-radius: var(--radius-large);
+  margin-bottom: 1rem;
+}
+
+.alertInfo {
+  background: var(--btn-plain-bg-hover);
+  border-left: 4px solid var(--primary);
+}
+
+.alertSuccess {
+  background: var(--admonitions-color-tip);
+  border-left: 4px solid var(--admonitions-color-tip);
+}
+
+.alertError {
+  background: var(--admonitions-color-caution);
+  border-left: 4px solid var(--admonitions-color-caution);
+}
+
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-top: 3px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Dark mode overrides */
+:global(.dark) .formInput {
+  background: var(--card-bg);
+  border-color: var(--line-color);
+  color: var(--text-90);
+}
+
+:global(.dark) .visitButton {
+  background: var(--btn-regular-bg);
+  color: var(--text-75);
+}
+
+:global(.dark) .visitButton:hover {
+  background: var(--btn-regular-bg-hover);
+}
+
+:global(.dark) .friendDescription {
+  color: var(--text-50);
+}
+
+:global(.dark) .formLabel {
+  color: var(--text-75);
+}
