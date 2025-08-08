@@ -19,7 +19,7 @@ const className = Astro.props.class;
   </span>
 )}
 
-<script define:vars={{ umamiConfig, slug }}>
+<script define:vars={{ umamiConfig, slug }} is:inline>
   (async () => {
     if (!umamiConfig.enable) return
 
@@ -48,7 +48,7 @@ const className = Astro.props.class;
         { headers: { 'x-umami-share-token': token } }
       )
       if (!statsRes.ok) throw new Error('stats')
-      const { pageviews, visits } = await statsRes.json()
+      const { pageviews } = await statsRes.json()
 
       display.textContent = `浏览 ${pageviews?.value || 0}`
     } catch {
