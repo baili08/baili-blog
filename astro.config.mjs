@@ -24,6 +24,50 @@ import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-copy-button.js";
 
+// Define a custom grammar for Smali
+const smaliGrammar = {
+  name: 'smali',
+  scopeName: 'source.smali',
+  patterns: [
+    {
+      match: '\.(class|super|implements|field|method|end\\s+(method|class|field|annotation|subannotation|enum))\\b',
+      name: 'keyword.control.smali'
+    },
+    {
+      match: '\\b(register|locals|param|local|prologue|epilogue|source|line|restart)\\b',
+      name: 'storage.type.smali'
+    },
+    {
+      match: '\\b(v[0-9]+|p[0-9]+)\\b',
+      name: 'variable.parameter.smali'
+    },
+    {
+      match: '\\b(\\.locals|\\.registers|\\.array-data|\\.packed-switch|\\.sparse-switch|\\.catch|\\.catchall|\\.parameter|\\.local|\\.prologue|\\.epilogue|\\.source|\\.line|\\.restart|\\.annotation|\\.subannotation|\\.enum)\\b',
+      name: 'keyword.other.smali'
+    },
+    {
+      match: '(\\b(const|const-wide|const-string|move|move-wide|move-object|add|sub|mul|div|rem|and|or|xor|shl|shr|ushr|not|neg|check-cast|instance-of|new-instance|new-array|filled-new-array|invoke|return|goto|if|aget|aput|iget|iput|sget|sput|array-length|throw|monitor-enter|monitor-exit|cmp|cmpl|cmpg|fill-array-data|execute-inline|invoke-direct-empty|iget-quick|invoke-virtual-quick|invoke-super-quick)\\b)',
+      name: 'support.function.smali'
+    },
+    {
+      match: '"[^"]*"',
+      name: 'string.quoted.double.smali'
+    },
+    {
+      match: '#.*$',
+      name: 'comment.line.number-sign.smali'
+    },
+    {
+      match: '\\b(true|false|null)\\b',
+      name: 'constant.language.smali'
+    },
+    {
+      match: '\\b(0x[0-9a-fA-F]+|[0-9]+)\\b',
+      name: 'constant.numeric.smali'
+    }
+  ]
+};
+
 // https://astro.build/config
 export default defineConfig({
 	site: "https://blog.my0811.cn",
@@ -64,6 +108,7 @@ export default defineConfig({
 				pluginLanguageBadge(),
 				pluginCustomCopyButton()
 			],
+			langs: [smaliGrammar], // Add the custom Smali grammar
 			defaultProps: {
 				wrap: true,
 				overridesByLang: {

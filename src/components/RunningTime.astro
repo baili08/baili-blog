@@ -1,0 +1,56 @@
+---
+interface Props {
+	startDate: Date;
+}
+---
+
+<div id="running-time-component" data-start-date="{Astro.props.startDate.toISOString()}">
+  ⏱️运行时间计算中...
+</div>
+
+<script>
+  // 获取组件元素和开始日期
+  const component = document.getElementById('running-time-component');
+  const startDateString = component?.dataset.startDate;
+  const startDate = startDateString ? new Date(startDateString) : new Date();
+  
+  // 格式化时间函数
+  function formatTime(seconds: number): string {
+    const d = Math.floor(seconds / 86400);
+    const h = Math.floor((seconds % 86400) / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    return `${d}天${h}小时${m}分${s}秒`;
+  }
+  
+  let interval: ReturnType<typeof setInterval> | null = null;
+  
+  function update() {
+    const now = new Date();
+    // startDate 从 data 属性获取
+    const diff = Math.floor((now.getTime() - startDate.getTime()) / 1000);
+    
+    const formattedTime = diff < 0
+      ? `🔜 站点即将上线：倒计时 ${formatTime(-diff)}`
+      : `⏱️本站已运行: ${formatTime(diff)} ☁️`;
+    
+    // 更新显示
+    if (component) {
+      component.textContent = formattedTime;
+    }
+  }
+  
+  // 立即执行一次
+  update();
+  
+  // 设置定时器每秒更新
+  interval = setInterval(update, 1000);
+  
+  // 页面卸载时清理定时器
+  window.addEventListener('beforeunload', () => {
+    if (interval) {
+      clearInterval(interval);
+      interval = null;
+    }
+  });
+</script>

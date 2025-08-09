@@ -58,6 +58,50 @@
         }
     }
 
+    /* Smali language syntax highlighting for txt code blocks that come after specific text */
+    .custom-md h2:has(+ *) code.language-txt,
+    .custom-md p:has(+ *) code.language-txt {
+        /* Method definitions */
+        .method, .end {
+            @apply text-purple-400 font-bold;
+        }
+        
+        /* Registers */
+        .registers, .locals {
+            @apply text-blue-400;
+        }
+        
+        /* Instructions */
+        .const, .move, .invoke, .return, .goto, .if, .new, .check, .instance, .sget, .iput {
+            @apply text-green-400;
+        }
+        
+        /* Strings */
+        .string {
+            @apply text-yellow-300;
+        }
+        
+        /* Comments */
+        .comment {
+            @apply text-gray-400 italic;
+        }
+        
+        /* Keywords */
+        .public, .private, .protected, .static, .final, .abstract, .synthetic {
+            @apply text-red-400;
+        }
+        
+        /* Class names */
+        .class-name {
+            @apply text-blue-300;
+        }
+        
+        /* Numbers */
+        .number {
+            @apply text-orange-300;
+        }
+    }
+
     .copy-btn {
         all: initial;
         @apply opacity-0 shadow-lg shadow-black/50 absolute active:scale-90 h-8 w-8 top-3 right-3 text-sm rounded-lg transition-all ease-in-out z-20 cursor-pointer;
