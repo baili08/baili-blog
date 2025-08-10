@@ -9,29 +9,29 @@ tags: ["Android", "逆向工程", "喵窝计账", "应用破解"]
 
 ## 0x1 首先打开软件
 
-切换到『我的』界面，可以看到「未订阅」三个字，因此判断存在一个方法用于判断订阅状态：若为会员则显示「xx 会员」，否则显示「未订阅」。从「未订阅」入手。
 
 ![0809-12_8df7b73a](https://r2.baili.cfd/0809-12_8df7b73a.webp)
-![0809-11_62bf1edb](https://r2.baili.cfd/0809-11_62bf1edb.webp)
+在『计账』界面，可以看到「未订阅」三个字，因此判断存在一个方法用于判断订阅状态：若为会员则显示「xx 会员」，否则显示「未订阅」。从「未订阅」入手。
 
 ## 0x2 在 resources.arsc 中搜索
 
-搜索「未订阅」，找到一个，长按属性复制，得到字符串 `vip_type_unsubscribed`。
-
+![0809-11_62bf1edb](https://r2.baili.cfd/0809-11_62bf1edb.webp)
 ![0809-10_ae566253](https://r2.baili.cfd/0809-10_ae566253.webp)
 ![0809-9_30e62fdd](https://r2.baili.cfd/0809-9_30e62fdd.webp)
 ![0809-8_8cda81fc](https://r2.baili.cfd/0809-8_8cda81fc.webp)
-![0809-6_18e29998](https://r2.baili.cfd/0809-6_18e29998.webp)
+
+搜索「未订阅」，找到一个，长按属性复制，得到字符串 `vip_type_unsubscribed`。
 
 ## 0x3 在 Dex 编辑器++ 中搜索
+![0809-6_18e29998](https://r2.baili.cfd/0809-6_18e29998.webp)
 
 搜索 `vip_type_unsubscribed`，类型为字符串，共三条结果；凭直觉选择中间一条进入。
 
 ## 0x4 定位到方法
+![0809-5_032b2cc9](https://r2.baili.cfd/0809-5_032b2cc9.webp)
 
 定位到 `com.glgjing.pig.ui.common.VipActivity.v` 方法。Smali 难以阅读，用 AI 转成 Java，代码如下：
 
-![0809-5_032b2cc9](https://r2.baili.cfd/0809-5_032b2cc9.webp)
 
 ```java
 package com.glgjing.pig.ui.common;
@@ -166,12 +166,12 @@ public final class VipActivity extends BaseListActivity {
 由代码可见，会员状态由 `i.a.J()` 返回的字符串决定。因此修改思路：直接让该方法返回 `"sub_vip_permanent"`（永久会员）。
 
 ## 0x5 修改 `i.a.J()`
-
-跳转到 `i.a.J()` 方法，清空代码，使其始终返回 `"sub_vip_permanent"`：
-
 ![0809-4_d0096ec6](https://r2.baili.cfd/0809-4_d0096ec6.webp)
 ![0809-3_799bad5a](https://r2.baili.cfd/0809-3_799bad5a.webp)
 ![0809-2_156005c5](https://r2.baili.cfd/0809-2_156005c5.webp)
+
+跳转到 `i.a.J()` 方法，清空代码，使其始终返回 `"sub_vip_permanent"`：
+
 
 ```txt
 .method public static J()Ljava/lang/String;
@@ -187,10 +187,10 @@ public final class VipActivity extends BaseListActivity {
 保存打包后发现：界面从「未订阅」变成了「永久会员」，但会员功能仍无法使用。
 
 ## 0x6 账本弹窗分析
+![0809-1_f3ccdd27](https://r2.baili.cfd/0809-1_f3ccdd27.webp)
 
 添加账本时出现文字弹窗。沿用前述步骤，对弹窗内容 `ledger_vip_tip` 进行分析，定位到 `a1.b.onClick` 方法。再用 AI 转 Java，关键代码如下：
 
-![0809-1_f3ccdd27](https://r2.baili.cfd/0809-1_f3ccdd27.webp)
 
 ```java
 /* 这是 onClick(View v) 的 switch-case 主框架 */
