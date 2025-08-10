@@ -52,6 +52,9 @@ export const siteConfig: SiteConfig = {
 			sizes: "256x256", // (Optional) Size of the favicon, set only if you have favicons of different sizes
 		},
 	],
+	accessibility: {
+		enable: true,
+	},
 };
 
 export const navBarConfig: NavBarConfig = {

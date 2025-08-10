@@ -7,6 +7,19 @@ body {
     font-weight: normal;
 }
 
+/* 添加辅助功能相关的样式 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 /* === 原有 Tailwind 和组件样式保持不变 === */
 @tailwind components;
 @tailwind utilities;

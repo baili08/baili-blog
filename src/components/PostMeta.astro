@@ -33,7 +33,7 @@ const className = Astro.props.class;
     <div class="flex items-center">
         <div class="meta-icon"
         >
-            <Icon name="material-symbols:calendar-today-outline-rounded" class="text-xl"></Icon>
+            <Icon name="material-symbols:calendar-today-outline-rounded" class="text-xl" aria-hidden="true"></Icon>
         </div>
         <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(published)}</span>
     </div>
@@ -43,7 +43,7 @@ const className = Astro.props.class;
         <div class="flex items-center">
             <div class="meta-icon"
             >
-                <Icon name="material-symbols:edit-calendar-outline-rounded" class="text-xl"></Icon>
+                <Icon name="material-symbols:edit-calendar-outline-rounded" class="text-xl" aria-hidden="true"></Icon>
             </div>
             <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(updated)}</span>
         </div>
@@ -53,10 +53,10 @@ const className = Astro.props.class;
     <div class="flex items-center">
         <div class="meta-icon"
         >
-            <Icon name="material-symbols:book-2-outline-rounded" class="text-xl"></Icon>
+            <Icon name="material-symbols:book-2-outline-rounded" class="text-xl" aria-hidden="true"></Icon>
         </div>
         <div class="flex flex-row flex-nowrap items-center">
-            <a href={getCategoryUrl(category)} aria-label={`View all posts in the ${category} category`}
+            <a href={getCategoryUrl(category)} aria-label={`View all posts in the ${category || i18n(I18nKey.uncategorized)} category`}
                class="link-lg transition text-50 text-sm font-medium
                             hover:text-[var(--primary)] dark:hover:text-[var(--primary)] whitespace-nowrap">
                 {category || i18n(I18nKey.uncategorized)}
@@ -68,17 +68,17 @@ const className = Astro.props.class;
     <div class={`items-center ${!hideTagsForMobile ? 'flex' : 'hidden md:flex'}`}>
         <div class="meta-icon"
         >
-            <Icon name="material-symbols:tag-rounded" class="text-xl"></Icon>
+            <Icon name="material-symbols:tag-rounded" class="text-xl" aria-hidden="true"></Icon>
         </div>
         <div class="flex flex-row flex-nowrap items-center">
-            {(tags && tags.length > 0) && tags.map((tag, i) => (
-                <div class:list={[{"hidden": i == 0}, "mx-1.5 text-[var(--meta-divider)] text-sm"]}>/</div>
+            {(tags && tags.length > 0) && tags.map((tag, i) => [
+                i > 0 && <div class="mx-1.5 text-[var(--meta-divider)] text-sm" aria-hidden="true">/</div>,
                 <a href={getTagUrl(tag)} aria-label={`View all posts with the ${tag.trim()} tag`}
                    class="link-lg transition text-50 text-sm font-medium
                                 hover:text-[var(--primary)] dark:hover:text-[var(--primary)] whitespace-nowrap">
                     {tag.trim()}
                 </a>
-            ))}
+            ])}
             {!(tags && tags.length > 0) && <div class="transition text-50 text-sm font-medium">{i18n(I18nKey.noTags)}</div>}
         </div>
     </div>

@@ -28,6 +28,10 @@ export type SiteConfig = {
 	};
 
 	favicon: Favicon[];
+
+	accessibility?: {
+		enable: boolean;
+	};
 };
 
 export type Favicon = {

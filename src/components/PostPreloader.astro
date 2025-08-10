@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getPostUrlBySlug } from "@utils/url-utils";
+
+interface Props {
+	posts: CollectionEntry<"posts">[];
+	count?: number;
+}
+
+const { posts, count = 3 } = Astro.props;
+
+// 只预加载前几篇文章
+const postsToPreload = posts.slice(0, count);
+---
+
+{postsToPreload.map((entry) => (
+  <link 
+    rel="prefetch" 
+    href={getPostUrlBySlug(entry.slug)} 
+    as="document" 
+  />
+))}
