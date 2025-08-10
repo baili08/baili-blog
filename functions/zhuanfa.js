@@ -1,16 +1,19 @@
-// clarity-subdir.js
-export async function onRequest(context) {
-  const { request } = context;
-  const url = new URL(request.url);
-
-  // 1. 只代理 /zhuanfa/ 及其子路径
-  if (url.pathname.startsWith('/zhuanfa/')) {
-    // 把 /zhuanfa/xxx 映射到 clarity.ms/xxx
-    url.hostname = 'www.clarity.ms';
-    url.pathname = url.pathname.replace(/^\/zhuanfa/, '');
-    return fetch(url.toString(), request);
+// /functions/zhuanfa/[[path]].js
+export async function onRequest({ request }) {
+  // 1. 只接受来自 blog.my0811.cn 的请求
+  const host = request.headers.get('host');
+  if (host !== 'blog.my0811.cn') {
+    return new Response('Forbidden', { status: 403 });
   }
 
-  // 2. 其余路径直接回源（走静态站）
-  return fetch(request);
+  // 2. 只代理 /zhuanfa/ 及其子路径
+  const url = new URL(request.url);
+  if (!url.pathname.startsWith('/zhuanfa/')) {
+    return fetch(request);          // 其余静态文件
+  }
+
+  // 3. 构造目标 URL 并转发
+  url.hostname = 'www.clarity.ms';
+  url.pathname = url.pathname.replace(/^\/zhuanfa/, '');
+  return fetch(url.toString(), request);
 }
