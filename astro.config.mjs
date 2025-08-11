@@ -16,7 +16,6 @@ import remarkGithubAdmonitionsToDirectives from "remark-github-admonitions-to-di
 import remarkMath from "remark-math";
 import remarkSectionize from "remark-sectionize";
 import astroCompress from "astro-compress";
-import { compress } from "@playform/compress";
 import { expressiveCodeConfig } from "./src/config.ts";
 import { pluginLanguageBadge } from "./src/plugins/expressive-code/language-badge.ts";
 import { AdmonitionComponent } from "./src/plugins/rehype-component-admonition.mjs";
@@ -95,7 +94,7 @@ export default defineConfig({
 			},
 			svg: true,
 		}),
-		compress({
+		(await import("@playform/compress")).default({
 			css: true,
 			html: true,
 			js: true,
