@@ -225,6 +225,18 @@ body {
     background-color: var(--selection-bg)
 }
 
+/* Ionicons 导航图标 */
+.i-ion-navigate:before {
+    content: "\f492";
+    font-family: "Ionicons";
+    font-style: normal;
+    font-weight: normal;
+    display: inline-block;
+    text-decoration: inherit;
+    color: inherit; /* 使用继承的颜色 */
+    font-size: inherit; /* 使用继承的字体大小 */
+}
+
 .dash-line {
     position: relative;
 }

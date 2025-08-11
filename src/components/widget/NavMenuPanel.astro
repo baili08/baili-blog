@@ -7,26 +7,42 @@ interface Props {
 	links: NavBarLink[];
 }
 
+// 定义导航项图标映射
+const linkIcons = {
+	"/": "material-symbols:home-outline-rounded",
+	"/archive/": "mdi:archive",
+	"/about/": "mdi:information",
+	"/friends/": "mdi:account-multiple",
+	"/bangumi/": "mdi:television",
+	"https://umami.baili.cfd/share/JHgyur0RQiPiNSSY/blog.my0811.cn": "mdi:chart-bar"
+};
+
 const links = Astro.props.links;
 ---
 <div id="nav-menu-panel" class:list={["float-panel float-panel-closed absolute transition-all fixed right-4 px-2 py-2"]}>
-    {links.map((link) => (
-        <a href={link.external ? link.url : url(link.url)} class="group flex justify-between items-center py-2 pl-3 pr-1 rounded-lg gap-8
-            hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition
-        "
-           target={link.external ? "_blank" : null}
-        >
-            <div class="transition text-black/75 dark:text-white/75 font-bold group-hover:text-[var(--primary)] group-active:text-[var(--primary)]">
-                {link.name}
-            </div>
-            {!link.external && <Icon name="material-symbols:chevron-right-rounded"
-                  class="transition text-[1.25rem] text-[var(--primary)]"
+    {links.map((link) => {
+        // 获取图标名称
+        const iconName = link.external ? "fa6-solid:arrow-up-right-from-square" : 
+                        linkIcons[link.url] || linkIcons["statistics"];
+        return (
+            <a href={link.external ? link.url : url(link.url)} class="group flex justify-between items-center py-2 pl-3 pr-1 rounded-lg gap-8
+                hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition
+            "
+               target={link.external ? "_blank" : null}
             >
-            </Icon>}
-            {link.external && <Icon name="fa6-solid:arrow-up-right-from-square"
-                  class="transition text-[0.75rem] text-black/25 dark:text-white/25 -translate-x-1"
-            >
-            </Icon>}
-        </a>
-    ))}
+                <div class="transition text-black/75 dark:text-white/75 font-bold group-hover:text-[var(--primary)] group-active:text-[var(--primary)] flex items-center">
+                    {!link.external && <Icon name={iconName} class="text-[1.25rem] mr-3" />}
+                    {link.name}
+                </div>
+                {!link.external && <Icon name="material-symbols:chevron-right-rounded"
+                      class="transition text-[1.25rem] text-[var(--primary)]"
+                >
+                </Icon>}
+                {link.external && <Icon name="fa6-solid:arrow-up-right-from-square"
+                      class="transition text-[0.75rem] text-black/25 dark:text-white/25 -translate-x-1"
+                >
+                </Icon>}
+            </a>
+        );
+    })}
 </div>

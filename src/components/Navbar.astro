@@ -11,6 +11,16 @@ import NavMenuPanel from "./widget/NavMenuPanel.astro";
 
 const className = Astro.props.class;
 
+// 定义导航项图标映射
+const linkIcons = {
+	"/": "material-symbols:home-outline-rounded",
+	"/archive/": "mdi:archive",
+	"/about/": "mdi:information",
+	"/friends/": "mdi:account-multiple",
+	"/bangumi/": "mdi:television",
+	"https://umami.baili.cfd/share/JHgyur0RQiPiNSSY/blog.my0811.cn": "mdi:chart-bar"
+};
+
 let links: NavBarLink[] = navBarConfig.links.map(
 	(item: NavBarLink | LinkPreset): NavBarLink => {
 		if (typeof item === "number") {
@@ -33,10 +43,14 @@ let links: NavBarLink[] = navBarConfig.links.map(
         </a>
         <div class="hidden md:flex">
             {links.map((l) => {
+                // 获取图标名称
+                const iconName = l.external ? "fa6-solid:arrow-up-right-from-square" : 
+                                linkIcons[l.url] || linkIcons["statistics"];
                 return <a aria-label={l.name} href={l.external ? l.url : url(l.url)} target={l.external ? "_blank" : null}
                           class="btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95"
                 >
                     <div class="flex items-center">
+                        {!l.external && <Icon name={iconName} class="text-[1.25rem] mr-2" />}
                         {l.name}
                         {l.external && <Icon name="fa6-solid:arrow-up-right-from-square" class="text-[0.875rem] transition -translate-y-[1px] ml-1 text-black/[0.2] dark:text-white/[0.2]"></Icon>}
                     </div>
