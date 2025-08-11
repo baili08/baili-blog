@@ -73,7 +73,7 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "https://r2.baili.cfd/avatar.png", // 修正：移除了末尾的空格
+	avatar: "https://r2.baili.cfd/avatar.webp", // 修正：移除了末尾的空格
 	name: "百里修行",
 	bio: "Tech otakus save the world.",
 	links: [

@@ -65,11 +65,13 @@
 	"devDependencies": {
 		"@astrojs/ts-plugin": "^1.10.4",
 		"@biomejs/biome": "2.0.6",
+		"@playform/compress": "^0.2.0",
 		"@rollup/plugin-yaml": "^4.1.2",
 		"@types/hast": "^3.0.4",
 		"@types/markdown-it": "^14.1.2",
 		"@types/mdast": "^4.0.4",
 		"@types/sanitize-html": "^2.16.0",
+		"astro-compress": "^2.3.8",
 		"postcss-import": "^16.1.1",
 		"postcss-nesting": "^13.0.2"
 	},

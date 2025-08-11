@@ -2,7 +2,7 @@
 title: 给你的Fuwari博客接入bangumi追番列表
 published: 2025-07-28
 description: 想在你的 Fuwari 主题 Astro 博客中展示 Bangumi 追番记录？本教程手把手教你从获取 API 权限、创建页面、添加导航到部署上线，完整实现一个支持暗色模式、响应式布局与进度条显示的 Bangumi 追番列表页面，让你的二次元生活优雅地融入个人博客。
-image: https://r2.baili.cfd/20250728.png
+image: https://r2.baili.cfd/20250728.webp
 tags: ["Fuwari博客", "Bangumi", "追番页面", "Astro教程"]
 category: 教程
 draft: false

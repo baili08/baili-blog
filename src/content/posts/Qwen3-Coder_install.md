@@ -2,7 +2,7 @@
 title: Qwen3-Coder 保姆级命令行安装与使用教程
 published: 2025-07-28
 description: 一篇保姆级教程，手把手教你用摩搭社区免费额度在本地命令行安装并运行 Qwen3-Coder 480B 大模型。涵盖 Node.js 环境、@qwen-code/qwen-code CLI 安装、API 令牌获取、环境变量配置，5 分钟搞定，开箱即用。
-image: https://r2.baili.cfd/2025072803.png
+image: https://r2.baili.cfd/2025072803.webp
 tags: ['Qwen3-Coder','免费API','AI编程']
 category: 教程
 draft: false

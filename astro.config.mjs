@@ -15,6 +15,8 @@ import remarkDirective from "remark-directive"; /* Handle directives */
 import remarkGithubAdmonitionsToDirectives from "remark-github-admonitions-to-directives";
 import remarkMath from "remark-math";
 import remarkSectionize from "remark-sectionize";
+import astroCompress from "astro-compress";
+import { compress } from "@playform/compress";
 import { expressiveCodeConfig } from "./src/config.ts";
 import { pluginLanguageBadge } from "./src/plugins/expressive-code/language-badge.ts";
 import { AdmonitionComponent } from "./src/plugins/rehype-component-admonition.mjs";
@@ -72,12 +74,33 @@ const smaliGrammar = {
 	],
 };
 
-// https://astro.build/config
+	// https://astro.build/config
 export default defineConfig({
 	site: "https://blog.my0811.cn",
 	base: "/",
 	trailingSlash: "always",
 	integrations: [
+		astroCompress({
+			css: true,
+			html: true,
+			js: true,
+			img: {
+				webp: true,
+				png: {
+					quality: 80,
+				},
+				jpeg: {
+					quality: 80,
+				},
+			},
+			svg: true,
+		}),
+		compress({
+			css: true,
+			html: true,
+			js: true,
+			image: true,
+		}),
 		tailwind({
 			nesting: true,
 		}),

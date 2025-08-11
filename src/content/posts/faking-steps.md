@@ -5,7 +5,7 @@ published: 2025-07-25
 
 description: '通过Python脚本实现Zeep Life步数修改，自动化提交指定步数，集成PushMe通知功能'
 
-image: https://r2.baili.cfd/20250725.png
+image: https://r2.baili.cfd/20250725.webp
 
 tags: ["Python", "自动化","Zeep Life","request"]
 
