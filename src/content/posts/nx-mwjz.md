@@ -1,7 +1,7 @@
 ---
 title: "记一次对喵窝计账的逆向分析"
 published: 2025-08-09
-description: "对喵窝计账应用的逆向工程分析过程"
+description: "本文详细记录了对安卓应用喵窝计账的逆向工程分析过程，包括使用工具定位关键代码、修改会员验证逻辑以及处理会员功能限制等技术细节，最终实现对该应用的深度定制。"
 image: "https://r2.baili.cfd/0809-1_ba9aa70d.webp"
 category: "Android逆向"
 tags: ["Android", "逆向工程", "喵窝计账", "应用破解"]
