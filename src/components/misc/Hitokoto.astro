@@ -7,8 +7,8 @@ const { class: className } = Astro.props;
 ---
 
 <div class={className}>
-  <div class="hitokoto-text text-white text-2xl font-bold text-center drop-shadow-lg"></div>
-  <div class="hitokoto-source text-white text-lg text-center mt-2 drop-shadow-lg"></div>
+  <div class="hitokoto-text text-white text-xl md:text-2xl font-bold text-center drop-shadow-lg"></div>
+  <div class="hitokoto-source text-white text-base md:text-lg text-center mt-2 drop-shadow-lg"></div>
 </div>
 
 <style is:global>
@@ -21,6 +21,37 @@ const { class: className } = Astro.props;
   width: 80%;
   max-width: 800px;
   text-align: center;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .hitokoto-container {
+    width: 90%;
+    max-width: none;
+  }
+  
+  .hitokoto-text {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.4;
+  }
+  
+  .hitokoto-source {
+    font-size: 1rem; /* 16px */
+  }
+}
+
+@media (max-width: 480px) {
+  .hitokoto-container {
+    width: 95%;
+  }
+  
+  .hitokoto-text {
+    font-size: 1.125rem; /* 18px */
+  }
+  
+  .hitokoto-source {
+    font-size: 0.875rem; /* 14px */
+  }
 }
 </style>
 
