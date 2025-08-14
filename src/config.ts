@@ -39,6 +39,16 @@ export const siteConfig: SiteConfig = {
 			text: "Tech otakus save the world.", // Credit text to be displayed
 			url: "", // (Optional) URL link to the original artwork or artist's page
 		},
+		// 添加Mizuki风格的banner配置
+		home: {
+			title: "百里博客",
+			subtitle: "一个高中生的博客",
+			typewriter: [
+				"Tech otakus save the world.",
+				"代码改变生活",
+				"安全第一，技术至上",
+			],
+		},
 	},
 	toc: {
 		enable: true, // Display the table of contents on the right side of the post

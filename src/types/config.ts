@@ -21,6 +21,12 @@ export type SiteConfig = {
 			text: string;
 			url?: string;
 		};
+		// 添加Mizuki风格的banner配置
+		home?: {
+			title?: string;
+			subtitle?: string;
+			typewriter?: string[];
+		};
 	};
 	toc: {
 		enable: boolean;
@@ -89,6 +95,7 @@ export type BlogPostData = {
 	draft?: boolean;
 	image?: string;
 	category?: string;
+	pinned?: boolean;
 	prevTitle?: string;
 	prevSlug?: string;
 	nextTitle?: string;

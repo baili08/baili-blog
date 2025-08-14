@@ -8,13 +8,14 @@ interface Props {
 }
 
 // 定义导航项图标映射
-const linkIcons = {
+const linkIcons: { [key: string]: string } = {
 	"/": "material-symbols:home-outline-rounded",
 	"/archive/": "mdi:archive",
 	"/about/": "mdi:information",
 	"/friends/": "mdi:account-multiple",
 	"/bangumi/": "mdi:television",
-	"https://umami.baili.cfd/share/JHgyur0RQiPiNSSY/blog.my0811.cn": "ion:stats-chart-sharp"
+	"https://umami.baili.cfd/share/JHgyur0RQiPiNSSY/blog.my0811.cn":
+		"ion:stats-chart-sharp",
 };
 
 const links = Astro.props.links;

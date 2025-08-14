@@ -3,12 +3,18 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { getCategoryUrl } from "@utils/url-utils.ts";
 
+// Retrieve posts and sort them by publication date
 async function getRawSortedPosts(): Promise<CollectionEntry<"posts">[]> {
 	const allBlogPosts = await getCollection("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
 
 	const sorted = allBlogPosts.sort((a, b) => {
+		// 首先按置顶状态排序，置顶文章在前
+		if (a.data.pinned && !b.data.pinned) return -1;
+		if (!a.data.pinned && b.data.pinned) return 1;
+
+		// 如果置顶状态相同，则按发布日期排序
 		const dateA = new Date(a.data.published);
 		const dateB = new Date(b.data.published);
 		return dateA > dateB ? -1 : 1;

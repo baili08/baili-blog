@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
 	"vcs": {
 		"enabled": false,
 		"clientKind": "git",
@@ -44,6 +44,15 @@
 		}
 	},
 	"overrides": [
+		{
+			"includes": [".astro/content.d.ts"],
+			"formatter": {
+				"enabled": false
+			},
+			"linter": {
+				"enabled": false
+			}
+		},
 		{
 			"includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
 			"linter": {
