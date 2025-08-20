@@ -129,6 +129,6 @@ export const twikooConfig: TwikooConfig = {
 export const umamiConfig: UmamiConfig = {
 	enable: true,
 	baseUrl: "https://umami.baili.cfd", // 换成你自己的 Umami 域名
-	shareId: "77cd4dac-5b42-433f-b0df-0d893839df22", // 换成你自己的 shareId
+	shareId: "Q0Q80oVG258OGufz", // 换成你自己的 shareId
 	timezone: "Asia/Shanghai",
 };

@@ -18,8 +18,8 @@ const linkIcons: { [key: string]: string } = {
 	"/about/": "mdi:information",
 	"/friends/": "mdi:account-multiple",
 	"/bangumi/": "mdi:television",
-	"https://umami.baili.cfd/share/JHgyur0RQiPiNSSY/blog.my0811.cn":
-		"ion:stats-chart-sharp",
+	// 统计链接图标
+	"stats": "ion:stats-chart-sharp",
 };
 
 let links: NavBarLink[] = navBarConfig.links.map(
@@ -49,7 +49,7 @@ let links: NavBarLink[] = navBarConfig.links.map(
                                 linkIcons[l.url] || "material-symbols:question-mark";
                 
                 // 特殊处理统计链接，使用SVG代码
-                const isStatsLink = l.url === "https://umami.baili.cfd/share/JHgyur0RQiPiNSSY/blog.my0811.cn";
+                const isStatsLink = l.name === "统计";
                 
                 return <a aria-label={l.name} href={l.external ? l.url : url(l.url)} target={l.external ? "_blank" : null}
                           class="btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95"
