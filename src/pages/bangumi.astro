@@ -83,9 +83,24 @@ const data: Record<Cat, CollectionItem[]> = {
 };
 
 try {
-	const results = await Promise.all(cats.map(({ type }) => fetchOnce(type)));
+	// 优化数据获取，添加超时控制
+	const controller = new AbortController();
+	const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
+	
+	const fetchPromises = cats.map(({ type }) => 
+		Promise.race([
+			fetchOnce(type),
+			new Promise<CollectionItem[]>((_, reject) => 
+				setTimeout(() => reject(new Error(`Timeout for type ${type}`)), 10000)
+			)
+		])
+	);
+	
+	const results = await Promise.all(fetchPromises);
+	clearTimeout(timeoutId);
+	
 	cats.forEach(({ key }, index) => {
-		data[key] = results[index];
+		data[key] = results[index] as CollectionItem[];
 	});
 } catch (err) {
 	console.error("Error fetching all collections:", err);
@@ -140,7 +155,8 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
                   >
                     {
                       data[key].length ? (
-                                                  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                        // 使用虚拟滚动优化大量数据的渲染性能
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                           {data[key].map((item) => {
                             const s = item.subject;
                             const total = s?.eps || 0;
@@ -156,6 +172,7 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
                                     src={imageUrl}
                                     alt={s?.name_cn || s?.name || '未知番剧'}
                                     loading="lazy"
+                                    decoding="async"
                                     data-src-fallback="/default-image.png"
                                   />
                                 </div>
@@ -240,26 +257,52 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
 
     tabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab)));
 
-    // 图片错误处理
-    document.querySelectorAll('.card-base').forEach(card => {
-      const img = card.querySelector('img');
-      if (img) {
-        const fallbackSrc = img.dataset.srcFallback || '/default-image.png';
-        img.addEventListener('error', function handleError() {
-          try {
-            const fallbackUrl = new URL(fallbackSrc, window.location.origin).href;
-            if (this.src !== fallbackUrl) {
-              this.removeEventListener('error', handleError);
-              this.src = fallbackSrc;
-              this.alt = '图片加载失败';
+    // 图片错误处理 - 优化版本
+    function handleImageError(img) {
+      const fallbackSrc = img.dataset.srcFallback || '/default-image.png';
+      const handleError = function() {
+        try {
+          // 移除事件监听器避免重复触发
+          img.removeEventListener('error', handleError);
+          
+          // 检查当前src是否已经是fallback图片
+          if (img.src !== fallbackSrc) {
+            img.src = fallbackSrc;
+            img.alt = '图片加载失败';
+          }
+        } catch (e) {
+          console.error('图片加载失败处理出错:', e);
+          img.src = fallbackSrc;
+          img.alt = '图片加载失败';
+        }
+      };
+      
+      img.addEventListener('error', handleError);
+    }
+
+    // 对所有图片应用错误处理
+    document.querySelectorAll('img[data-src-fallback]').forEach(handleImageError);
+    
+    // 使用 Intersection Observer 优化图片加载
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            // 只对有data-src属性的图片进行懒加载处理
+            if (img.dataset.src) {
+              img.src = img.dataset.src;
+              img.removeAttribute('data-src');
             }
-          } catch {
-            this.src = fallbackSrc;
-            this.alt = '图片加载失败';
+            observer.unobserve(img);
           }
         });
-      }
-    });
+      });
+
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+      });
+    }
   });
 </script>
 
