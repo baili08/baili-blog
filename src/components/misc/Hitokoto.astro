@@ -14,7 +14,7 @@ const { class: className } = Astro.props;
 <style is:global>
 .hitokoto-container {
   position: absolute;
-  bottom: 20px;
+  top: 50%;
   left: 0;
   right: 0;
   z-index: 20;
@@ -22,6 +22,7 @@ const { class: className } = Astro.props;
   max-width: 800px;
   text-align: center;
   margin: 0 auto;
+  transform: translateY(-50%);
 }
 
 .hitokoto-text {
@@ -41,33 +42,37 @@ const { class: className } = Astro.props;
 /* 移动端适配 */
 @media (max-width: 768px) {
   .hitokoto-container {
-    width: 90%;
-    max-width: none;
-    bottom: 10px;
+    width: 90% !important;
+    max-width: none !important;
+    top: 55% !important; /* 将位置从50%调整到55%，稍向下移动 */
+    bottom: auto !important;
+    transform: translateY(-50%) !important;
   }
   
   .hitokoto-text {
-    font-size: 1rem;
-    line-height: 1.4;
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
   }
   
   .hitokoto-source {
-    font-size: 0.875rem;
+    font-size: 0.875rem !important;
   }
 }
 
 @media (max-width: 480px) {
   .hitokoto-container {
-    width: 95%;
-    bottom: 5px;
+    width: 95% !important;
+    top: 55% !important; /* 将位置从50%调整到55%，稍向下移动 */
+    bottom: auto !important;
+    transform: translateY(-50%) !important;
   }
   
   .hitokoto-text {
-    font-size: 0.875rem;
+    font-size: 0.875rem !important;
   }
   
   .hitokoto-source {
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
   }
 }
 </style>

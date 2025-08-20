@@ -76,7 +76,7 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Bangumi, // 添加Bangumi页面链接
 		{
 			name: "统计",
-			url: "https://umami.baili.cfd/share/JHgyur0RQiPiNSSY/blog.my0811.cn",
+			url: "https://umami.baili.cfd/share/Q0Q80oVG258OGufz/blog.my0811.cn",
 			external: true,
 		},
 	],
@@ -129,6 +129,6 @@ export const twikooConfig: TwikooConfig = {
 export const umamiConfig: UmamiConfig = {
 	enable: true,
 	baseUrl: "https://umami.baili.cfd", // 换成你自己的 Umami 域名
-	shareId: "JHgyur0RQiPiNSSY", // 换成你自己的 shareId
+	shareId: "77cd4dac-5b42-433f-b0df-0d893839df22", // 换成你自己的 shareId
 	timezone: "Asia/Shanghai",
 };

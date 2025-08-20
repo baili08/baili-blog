@@ -66,7 +66,7 @@ const mainPanelTop = siteConfig.banner.enable
 	<Hitokoto class="hitokoto-container" />
 	
 	<!-- Water wave effect (using Mizuki style) -->
-	<div class="waves absolute -bottom-[1px] h-[10vh] max-h-[9.375rem] min-h-[3.125rem] w-full md:h-[15vh]" id="header-waves">
+	<div class="waves absolute -bottom-[1px] h-[2.5vh] max-h-[2.5rem] min-h-[1.5rem] w-full md:h-[3vh]" id="header-waves">
 		<svg
 			class="waves"
 			xmlns="http://www.w3.org/2000/svg"
@@ -167,10 +167,10 @@ const mainPanelTop = siteConfig.banner.enable
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 15vh;
+  height: 3vh;
   /* Fix for safari gap */
-  min-height: 100px;
-  max-height: 150px;
+  min-height: 25px;
+  max-height: 50px;
 }
 
 .waves svg {
@@ -228,24 +228,26 @@ const mainPanelTop = siteConfig.banner.enable
 @media (max-width: 768px) {
 	.hitokoto-container {
 		font-size: 0.875rem;
-		bottom: 10px;
+		top: 50% !important;
+		bottom: auto !important;
+		transform: translateY(-50%) !important;
 	}
 	
 	/* 移动端横幅高度优化 */
 	#banner-wrapper {
-		height: 60vh !important;
+		height: 100vh !important; /* 设置移动端banner高度为100vh */
 	}
 	
 	/* 移动端主内容区域位置调整 */
 	.absolute.w-full.z-30 {
-		top: calc(60vh - 3.5rem) !important;
+		top: calc(100vh - 3.5rem) !important;
 	}
 	
 	/* 移动端水波纹高度调整 */
 	.waves {
-		height: 8vh;
-		min-height: 60px;
-		max-height: 100px;
+		height: 2.5vh !important;
+		min-height: 20px !important;
+		max-height: 40px !important;
 	}
 }
 
@@ -253,15 +255,15 @@ const mainPanelTop = siteConfig.banner.enable
 @media (max-width: 480px) {
 	.hitokoto-container {
 		font-size: 0.75rem;
-		bottom: 5px;
+		bottom: 5px !important;
 		padding: 0 0.5rem;
 	}
 	
 	/* 超小屏幕水波纹高度调整 */
 	.waves {
-		height: 6vh;
-		min-height: 40px;
-		max-height: 80px;
+		height: 2vh !important;
+		min-height: 15px !important;
+		max-height: 30px !important;
 	}
 }
 </style>
