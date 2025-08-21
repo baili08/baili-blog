@@ -32,9 +32,16 @@ const currentYear = new Date().getFullYear();
         </a>
         <br>
 
-        <!-- 运行时间显示 -->
-        <div id="running-time-container">
-            <span id="running-time-text">⏱️运行时间计算中...</span>
+        <!-- 运行时间显示容器 -->
+        <div id="running-time-display-container">
+            <span id="running-time-display">⏱️运行时间计算中...</span>
+        </div>
+        
+        <!-- 隐藏的调试信息 -->
+        <div id="debug-info" style="display: none;">
+            <span id="debug-browser-info"></span>
+            <span id="debug-init-status"></span>
+            <span id="debug-attempts"></span>
         </div>
     </div>
 
@@ -49,74 +56,547 @@ const currentYear = new Date().getFullYear();
     </div>
 </footer>
 
-<!-- 运行时间脚本 -->
+<!-- 运行时间计算与显示系统 -->
 <script is:inline>
-    // 站点运行时间计算
-    function updateRunTime() {
-        const startDate = new Date(2025, 6, 22, 8, 0, 0); // 2025年7月22日 8:00:00
-        const nowDate = new Date();
-        const diff = nowDate - startDate;
-        const seconds = Math.floor(diff / 1000);
+    /**
+     * 站点运行时间计算与显示系统
+     * 
+     * 该系统采用多层保障机制确保在各种设备和浏览器环境下都能正确显示站点运行时间
+     * 包括DOM就绪检测、浏览器兼容性处理、移动端特殊处理等
+     */
+    
+    // 系统配置
+    const RUNTIME_CONFIG = {
+        // 建站日期 (2025年7月22日 8:00:00)
+        startDate: new Date(2025, 6, 22, 8, 0, 0),
+        // 更新间隔 (毫秒)
+        updateInterval: 1000,
+        // 初始化尝试间隔 (毫秒)
+        initIntervals: [10, 50, 100, 250, 500, 1000, 2000, 3000, 5000],
+        // 最大初始化尝试次数
+        maxInitAttempts: 20,
+        // 调试模式
+        debugMode: false
+    };
+    
+    // 系统状态管理
+    const RuntimeSystemState = {
+        // 初始化状态
+        initialized: false,
+        // 初始化尝试次数
+        initAttempts: 0,
+        // 定时器ID
+        intervalId: null,
+        // 浏览器信息
+        browserInfo: {
+            isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+            isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent),
+            isSafari: /^((?!chrome|android).)*safari/i.test(navigator.userAgent),
+            userAgent: navigator.userAgent
+        },
+        // 调试信息
+        debugInfo: {
+            initEvents: [],
+            errorMessages: [],
+            successMessages: []
+        }
+    };
+    
+    /**
+     * 工具函数集合
+     */
+    const RuntimeUtils = {
+        /**
+         * 格式化时间显示
+         * @param {number} seconds - 总秒数
+         * @returns {string} 格式化后的时间字符串
+         */
+        formatTime(seconds) {
+            if (seconds < 0) return "⏱️运行时间计算中...";
+            
+            const days = Math.floor(seconds / 86400);
+            const hours = Math.floor((seconds % 86400) / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            
+            return `⏱️本站已运行: ${days}天${hours}小时${minutes}分${secs}秒 ☁️`;
+        },
         
-        if (seconds < 0) {
-            document.getElementById("running-time-text").textContent = "⏱️运行时间计算中...";
+        /**
+         * 获取DOM元素
+         * @param {string} id - 元素ID
+         * @returns {HTMLElement|null} DOM元素或null
+         */
+        getElement(id) {
+            try {
+                return document.getElementById(id);
+            } catch (error) {
+                this.logError(`获取元素失败: ${id}`, error);
+                return null;
+            }
+        },
+        
+        /**
+         * 记录调试信息
+         * @param {string} message - 调试信息
+         * @param {string} type - 信息类型 (info/warn/error)
+         */
+        logDebug(message, type = "info") {
+            if (!RUNTIME_CONFIG.debugMode) return;
+            
+            const timestamp = new Date().toISOString();
+            const logMessage = `[RuntimeSystem][${timestamp}] ${message}`;
+            
+            switch (type) {
+                case "warn":
+                    console.warn(logMessage);
+                    break;
+                case "error":
+                    console.error(logMessage);
+                    break;
+                default:
+                    console.log(logMessage);
+            }
+            
+            // 记录到系统状态
+            RuntimeSystemState.debugInfo[`${type}Messages`].push(logMessage);
+            
+            // 更新调试显示
+            this.updateDebugDisplay();
+        },
+        
+        /**
+         * 记录错误信息
+         * @param {string} message - 错误信息
+         * @param {Error} error - 错误对象
+         */
+        logError(message, error = null) {
+            const errorMessage = error ? `${message} - ${error.message}` : message;
+            this.logDebug(errorMessage, "error");
+        },
+        
+        /**
+         * 更新调试显示
+         */
+        updateDebugDisplay() {
+            if (!RUNTIME_CONFIG.debugMode) return;
+            
+            const debugInfoElement = this.getElement("debug-info");
+            if (!debugInfoElement) return;
+            
+            const browserInfoElement = this.getElement("debug-browser-info");
+            const initStatusElement = this.getElement("debug-init-status");
+            const attemptsElement = this.getElement("debug-attempts");
+            
+            if (browserInfoElement) {
+                browserInfoElement.textContent = `Browser: ${RuntimeSystemState.browserInfo.userAgent.substring(0, 50)}...`;
+            }
+            
+            if (initStatusElement) {
+                initStatusElement.textContent = `Initialized: ${RuntimeSystemState.initialized}`;
+            }
+            
+            if (attemptsElement) {
+                attemptsElement.textContent = `Attempts: ${RuntimeSystemState.initAttempts}`;
+            }
+            
+            debugInfoElement.style.display = "block";
+        },
+        
+        /**
+         * 检查必要元素是否存在
+         * @returns {boolean} 是否存在必要元素
+         */
+        checkRequiredElements() {
+            const requiredElements = [
+                "running-time-display",
+                "running-time-display-container"
+            ];
+            
+            for (const elementId of requiredElements) {
+                if (!this.getElement(elementId)) {
+                    this.logError(`缺少必要元素: ${elementId}`);
+                    return false;
+                }
+            }
+            
+            return true;
+        },
+        
+        /**
+         * 检查DOM是否就绪
+         * @returns {boolean} DOM是否就绪
+         */
+        isDOMReady() {
+            return document.readyState === "complete" || document.readyState === "interactive";
+        }
+    };
+    
+    /**
+     * 运行时间计算核心类
+     */
+    class RuntimeCalculator {
+        /**
+         * 计算运行时间
+         * @returns {string} 格式化后的运行时间字符串
+         */
+        static calculate() {
+            try {
+                const now = new Date();
+                const diff = now - RUNTIME_CONFIG.startDate;
+                const seconds = Math.floor(diff / 1000);
+                
+                return RuntimeUtils.formatTime(seconds);
+            } catch (error) {
+                RuntimeUtils.logError("计算运行时间失败", error);
+                return "⏱️运行时间计算中...";
+            }
+        }
+        
+        /**
+         * 更新显示
+         */
+        static updateDisplay() {
+            try {
+                const displayElement = RuntimeUtils.getElement("running-time-display");
+                if (!displayElement) {
+                    RuntimeUtils.logError("无法找到显示元素");
+                    return;
+                }
+                
+                const timeString = this.calculate();
+                displayElement.textContent = timeString;
+                
+                RuntimeUtils.logDebug(`更新显示: ${timeString}`);
+            } catch (error) {
+                RuntimeUtils.logError("更新显示失败", error);
+            }
+        }
+    }
+    
+    /**
+     * 初始化管理器
+     */
+    class InitializationManager {
+        /**
+         * 执行初始化
+         * @returns {boolean} 是否初始化成功
+         */
+        static initialize() {
+            // 防止重复初始化
+            if (RuntimeSystemState.initialized) {
+                RuntimeUtils.logDebug("系统已初始化，跳过重复初始化");
+                return true;
+            }
+            
+            // 增加尝试次数
+            RuntimeSystemState.initAttempts++;
+            RuntimeUtils.logDebug(`初始化尝试 #${RuntimeSystemState.initAttempts}`);
+            
+            // 检查必要元素
+            if (!RuntimeUtils.checkRequiredElements()) {
+                RuntimeUtils.logError("必要元素检查失败");
+                return false;
+            }
+            
+            try {
+                // 首次更新显示
+                RuntimeCalculator.updateDisplay();
+                
+                // 清除已存在的定时器
+                if (RuntimeSystemState.intervalId) {
+                    clearInterval(RuntimeSystemState.intervalId);
+                }
+                
+                // 设置定时更新
+                RuntimeSystemState.intervalId = setInterval(() => {
+                    RuntimeCalculator.updateDisplay();
+                }, RUNTIME_CONFIG.updateInterval);
+                
+                // 标记为已初始化
+                RuntimeSystemState.initialized = true;
+                
+                RuntimeUtils.logDebug("初始化成功");
+                RuntimeUtils.updateDebugDisplay();
+                
+                return true;
+            } catch (error) {
+                RuntimeUtils.logError("初始化过程中发生错误", error);
+                return false;
+            }
+        }
+        
+        /**
+         * 延迟初始化
+         * @param {number} delay - 延迟时间(毫秒)
+         */
+        static delayedInitialize(delay) {
+            RuntimeUtils.logDebug(`计划延迟初始化: ${delay}ms`);
+            
+            setTimeout(() => {
+                if (!RuntimeSystemState.initialized) {
+                    this.initialize();
+                }
+            }, delay);
+        }
+        
+        /**
+         * 启动初始化序列
+         */
+        static startInitializationSequence() {
+            RuntimeUtils.logDebug("启动初始化序列");
+            
+            // 立即尝试初始化
+            if (RuntimeUtils.isDOMReady()) {
+                this.initialize();
+            }
+            
+            // 按配置的时间间隔依次尝试初始化
+            RUNTIME_CONFIG.initIntervals.forEach((delay, index) => {
+                this.delayedInitialize(delay);
+            });
+            
+            // 额外的延迟尝试，确保在极端情况下也能初始化
+            for (let i = 1; i <= 5; i++) {
+                this.delayedInitialize(i * 10000); // 10秒、20秒、30秒、40秒、50秒
+            }
+        }
+    }
+    
+    /**
+     * 事件监听器管理器
+     */
+    class EventListenerManager {
+        /**
+         * 添加DOM就绪事件监听器
+         */
+        static addDOMReadyListener() {
+            const handleDOMReady = () => {
+                RuntimeUtils.logDebug("DOM就绪事件触发");
+                InitializationManager.initialize();
+            };
+            
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", handleDOMReady);
+                RuntimeUtils.logDebug("添加DOMContentLoaded事件监听器");
+            } else {
+                // DOM已经就绪
+                handleDOMReady();
+            }
+        }
+        
+        /**
+         * 添加页面加载完成事件监听器
+         */
+        static addLoadListener() {
+            const handleLoad = () => {
+                RuntimeUtils.logDebug("页面加载完成事件触发");
+                InitializationManager.initialize();
+            };
+            
+            if (document.readyState === "complete") {
+                // 页面已经加载完成
+                handleLoad();
+            } else {
+                window.addEventListener("load", handleLoad);
+                RuntimeUtils.logDebug("添加load事件监听器");
+            }
+        }
+        
+        /**
+         * 添加页面可见性变化事件监听器
+         */
+        static addVisibilityChangeListener() {
+            const handleVisibilityChange = () => {
+                RuntimeUtils.logDebug(`页面可见性变化: ${document.hidden ? '隐藏' : '显示'}`);
+                if (!document.hidden) {
+                    InitializationManager.initialize();
+                }
+            };
+            
+            document.addEventListener("visibilitychange", handleVisibilityChange);
+            RuntimeUtils.logDebug("添加visibilitychange事件监听器");
+        }
+        
+        /**
+         * 添加页面显示/隐藏事件监听器 (移动端特殊处理)
+         */
+        static addPageLifecycleListeners() {
+            const handlePageShow = () => {
+                RuntimeUtils.logDebug("页面显示事件触发");
+                InitializationManager.initialize();
+            };
+            
+            const handlePageHide = () => {
+                RuntimeUtils.logDebug("页面隐藏事件触发");
+                // 页面隐藏时清除定时器以节省资源
+                if (RuntimeSystemState.intervalId) {
+                    clearInterval(RuntimeSystemState.intervalId);
+                    RuntimeSystemState.intervalId = null;
+                    RuntimeUtils.logDebug("清除定时器");
+                }
+            };
+            
+            window.addEventListener("pageshow", handlePageShow);
+            window.addEventListener("pagehide", handlePageHide);
+            
+            RuntimeUtils.logDebug("添加pageshow和pagehide事件监听器");
+        }
+        
+        /**
+         * 添加就绪状态变化事件监听器
+         */
+        static addReadyStateChangeListener() {
+            const handleReadyStateChange = () => {
+                RuntimeUtils.logDebug(`就绪状态变化: ${document.readyState}`);
+                if (document.readyState === "interactive" || document.readyState === "complete") {
+                    InitializationManager.initialize();
+                }
+            };
+            
+            document.addEventListener("readystatechange", handleReadyStateChange);
+            RuntimeUtils.logDebug("添加readystatechange事件监听器");
+        }
+        
+        /**
+         * 初始化所有事件监听器
+         */
+        static initializeAllListeners() {
+            try {
+                this.addDOMReadyListener();
+                this.addLoadListener();
+                this.addVisibilityChangeListener();
+                this.addPageLifecycleListeners();
+                this.addReadyStateChangeListener();
+                
+                RuntimeUtils.logDebug("所有事件监听器初始化完成");
+            } catch (error) {
+                RuntimeUtils.logError("初始化事件监听器失败", error);
+            }
+        }
+    }
+    
+    /**
+     * 移动端特殊处理管理器
+     */
+    class MobileSpecialHandler {
+        /**
+         * 检查是否为移动端浏览器
+         * @returns {boolean} 是否为移动端
+         */
+        static isMobileBrowser() {
+            return RuntimeSystemState.browserInfo.isMobile;
+        }
+        
+        /**
+         * 检查是否为iOS设备
+         * @returns {boolean} 是否为iOS设备
+         */
+        static isIOSDevice() {
+            return RuntimeSystemState.browserInfo.isIOS;
+        }
+        
+        /**
+         * 应用移动端特殊处理
+         */
+        static applySpecialHandling() {
+            if (!this.isMobileBrowser()) {
+                RuntimeUtils.logDebug("非移动端浏览器，跳过特殊处理");
+                return;
+            }
+            
+            RuntimeUtils.logDebug("检测到移动端浏览器，应用特殊处理");
+            
+            // 添加额外的延迟初始化
+            const mobileDelays = [100, 500, 1000, 2000, 3000, 5000, 10000];
+            mobileDelays.forEach(delay => {
+                InitializationManager.delayedInitialize(delay);
+            });
+            
+            // iOS特殊处理
+            if (this.isIOSDevice()) {
+                RuntimeUtils.logDebug("检测到iOS设备，应用iOS特殊处理");
+                
+                // 添加更长的延迟初始化
+                const iosDelays = [15000, 30000, 60000]; // 15秒、30秒、1分钟
+                iosDelays.forEach(delay => {
+                    InitializationManager.delayedInitialize(delay);
+                });
+            }
+        }
+    }
+    
+    /**
+     * 系统主控制器
+     */
+    class RuntimeSystemController {
+        /**
+         * 初始化系统
+         */
+        static initializeSystem() {
+            RuntimeUtils.logDebug("开始初始化运行时间系统");
+            
+            try {
+                // 初始化事件监听器
+                EventListenerManager.initializeAllListeners();
+                
+                // 应用移动端特殊处理
+                MobileSpecialHandler.applySpecialHandling();
+                
+                // 启动初始化序列
+                InitializationManager.startInitializationSequence();
+                
+                // 添加最终保障
+                setTimeout(() => {
+                    if (!RuntimeSystemState.initialized) {
+                        RuntimeUtils.logDebug("最终保障初始化");
+                        InitializationManager.initialize();
+                    }
+                }, 60000); // 1分钟后最终保障
+                
+                RuntimeUtils.logDebug("运行时间系统初始化完成");
+            } catch (error) {
+                RuntimeUtils.logError("系统初始化失败", error);
+            }
+        }
+    }
+    
+    /**
+     * 启动系统
+     */
+    function startRuntimeSystem() {
+        // 确保只启动一次
+        if (window.runtimeSystemStarted) {
+            RuntimeUtils.logDebug("系统已启动，跳过重复启动");
             return;
         }
         
-        const days = Math.floor(seconds / 86400);
-        const hours = Math.floor((seconds % 86400) / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const secs = seconds % 60;
+        window.runtimeSystemStarted = true;
+        RuntimeUtils.logDebug("启动运行时间系统");
         
-        const timeString = `⏱️本站已运行: ${days}天${hours}小时${minutes}分${secs}秒 ☁️`;
-        document.getElementById("running-time-text").textContent = timeString;
+        // 延迟启动以确保所有资源加载完成
+        setTimeout(() => {
+            RuntimeSystemController.initializeSystem();
+        }, 10);
     }
     
-    // 初始化运行时间显示
-    function initRunTime() {
-        // 防止重复初始化
-        if (window.hasRunTimeInitialized) return;
-        window.hasRunTimeInitialized = true;
-        
-        // 立即更新一次
-        updateRunTime();
-        
-        // 设置定时器每秒更新
-        window.runTimeInterval = setInterval(updateRunTime, 1000);
-    }
-    
-    // 多重保障的初始化方式
+    // 启动系统
     if (typeof window !== 'undefined') {
-        // DOM就绪时初始化
+        // DOM就绪时启动
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initRunTime);
+            document.addEventListener('DOMContentLoaded', startRuntimeSystem);
         } else {
             // DOM已经就绪
-            initRunTime();
+            startRuntimeSystem();
         }
         
-        // 页面加载完成时初始化
-        window.addEventListener('load', initRunTime);
+        // 页面加载完成时启动
+        window.addEventListener('load', startRuntimeSystem);
         
-        // 多个时间点的fallback
-        setTimeout(initRunTime, 100);
-        setTimeout(initRunTime, 500);
-        setTimeout(initRunTime, 1000);
-        setTimeout(initRunTime, 3000);
-        
-        // 页面可见性变化时更新
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden) {
-                initRunTime();
-            }
-        });
-        
-        // 页面显示/隐藏时处理（针对移动端浏览器）
-        window.addEventListener('pageshow', initRunTime);
-        window.addEventListener('pagehide', () => {
-            if (window.runTimeInterval) {
-                clearInterval(window.runTimeInterval);
-                window.runTimeInterval = null;
+        // 就绪状态变化时启动
+        document.addEventListener('readystatechange', () => {
+            if (document.readyState === 'interactive' || document.readyState === 'complete') {
+                startRuntimeSystem();
             }
         });
     }
