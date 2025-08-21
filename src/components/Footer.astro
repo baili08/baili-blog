@@ -11,7 +11,7 @@ const currentYear = new Date().getFullYear();
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
         </svg>
-        <span id="runtime" class="font-medium text-gray-700 dark:text-gray-300">⏱️加载中</span>
+        <span id="runtime" class="font-medium text-gray-700 dark:text-gray-300">⏱️加载中...</span>
       </div>
       
       <div class="flex items-center gap-2">
@@ -83,4 +83,29 @@ const currentYear = new Date().getFullYear();
 
   <script is:inline src="https://www.busuanzi.cc/static/3.6.9/busuanzi.min.js"></script>
   <script is:inline src="/runtime.js"></script>
+  
+  <!-- 移动端特殊处理，确保页脚内容显示 -->
+  <script is:inline>
+    // 移动端额外的初始化处理
+    function mobileFooterInit() {
+      // 确保运行时间显示元素存在
+      const runtimeElement = document.getElementById('runtime');
+      if (runtimeElement && runtimeElement.textContent === '⏱️加载中...') {
+        // 如果运行时间仍未更新，则手动触发一次更新
+        if (typeof initRuntime === 'function') {
+          setTimeout(initRuntime, 100);
+        }
+      }
+    }
+    
+    // 在不同时间点尝试初始化
+    document.addEventListener('DOMContentLoaded', mobileFooterInit);
+    window.addEventListener('load', mobileFooterInit);
+    window.addEventListener('pageshow', mobileFooterInit);
+    
+    // 针对移动端浏览器的特殊处理
+    setTimeout(mobileFooterInit, 500);
+    setTimeout(mobileFooterInit, 1000);
+    setTimeout(mobileFooterInit, 3000);
+  </script>
 </footer>
