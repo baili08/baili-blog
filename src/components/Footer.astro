@@ -107,6 +107,13 @@ const currentYear = new Date().getFullYear();
                         initRuntime();
                     });
                 }
+                
+                // 添加移动端特殊处理 - 增加延迟执行确保DOM渲染完成
+                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    // 移动端设备上增加额外的延迟执行
+                    setTimeout(initRuntime, 500);
+                    setTimeout(initRuntime, 2000);
+                }
             }
             
             // 添加一个fallback机制，确保在极端情况下也能执行
@@ -116,6 +123,14 @@ const currentYear = new Date().getFullYear();
                     initRuntime();
                 }
             }, 1000);
+            
+            // 增加一个更长的fallback机制
+            setTimeout(() => {
+                if (document.getElementById("runningtime") && 
+                    document.getElementById("runningtime").innerHTML.includes("计算中")) {
+                    initRuntime();
+                }
+            }, 3000);
         </script>
         <p id="runningtime" class="text-black/75 dark:text-white/75">⏱️运行时间计算中...</p>
     </div>
