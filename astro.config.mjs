@@ -93,6 +93,8 @@ export default defineConfig({
 				},
 			},
 			svg: true,
+			// 排除 runtime.js 文件不进行压缩
+			exclude: ["**/runtime.js"],
 		}),
 		(await import("@playform/compress")).default({
 			css: true,
