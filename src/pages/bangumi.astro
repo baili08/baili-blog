@@ -86,19 +86,19 @@ try {
 	// 优化数据获取，添加超时控制
 	const controller = new AbortController();
 	const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
-	
-	const fetchPromises = cats.map(({ type }) => 
+
+	const fetchPromises = cats.map(({ type }) =>
 		Promise.race([
 			fetchOnce(type),
-			new Promise<CollectionItem[]>((_, reject) => 
-				setTimeout(() => reject(new Error(`Timeout for type ${type}`)), 10000)
-			)
-		])
+			new Promise<CollectionItem[]>((_, reject) =>
+				setTimeout(() => reject(new Error(`Timeout for type ${type}`)), 10000),
+			),
+		]),
 	);
-	
+
 	const results = await Promise.all(fetchPromises);
 	clearTimeout(timeoutId);
-	
+
 	cats.forEach(({ key }, index) => {
 		data[key] = results[index] as CollectionItem[];
 	});
